@@ -6,9 +6,25 @@
         {
           "group": "Grounded Systems",
           "pages": [
-            "index",
+            "index"
+          ]
+        },
+        {
+          "group": "For customers",
+          "pages": [
             "customers/index",
-            "practitioners/index"
+            "customers/what-we-help-with",
+            "customers/how-we-work",
+            "customers/when-we-are-a-fit"
+          ]
+        },
+        {
+          "group": "For practitioners",
+          "pages": [
+            "practitioners/index",
+            "practitioners/who-thrives-here",
+            "practitioners/how-we-think",
+            "practitioners/what-this-work-demands"
           ]
         }
       ]
