@@ -1,0 +1,78 @@
+{
+  "tabs": [
+    {
+      "tab": "Start",
+      "groups": [
+        {
+          "group": "Grounded Systems",
+          "pages": [
+            "index",
+            "customers/index",
+            "practitioners/index"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Principles",
+      "groups": [
+        {
+          "group": "Core",
+          "pages": [
+            "principles/index",
+            "principles/core-principles",
+            "principles/anti-patterns",
+            "principles/engagement-model",
+            "principles/grounded-practitioners"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Playbook",
+      "groups": [
+        {
+          "group": "Field Guide",
+          "pages": [
+            "playbook/index",
+            "playbook/entry-gate",
+            "playbook/discovery",
+            "playbook/decision-patterns",
+            "playbook/field-signals",
+            "playbook/sponsor-behavior",
+            "playbook/working-in-the-open",
+            "playbook/taper-and-exit",
+            "playbook/checklists"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Cases",
+      "groups": [
+        {
+          "group": "Examples",
+          "pages": [
+            "cases/index",
+            "cases/legacy-modernization",
+            "cases/vendor-friction",
+            "cases/platform-seams"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Reference",
+      "groups": [
+        {
+          "group": "Reference",
+          "pages": [
+            "reference/glossary",
+            "reference/faq",
+            "reference/contribution-model"
+          ]
+        }
+      ]
+    }
+  ]
+}

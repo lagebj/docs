@@ -1,0 +1,25 @@
+{
+  "name": "grounded-systems",
+  "private": true,
+  "scripts": {
+    "dev": "mint dev"
+  },
+  "devDependencies": {
+    "mint": "^4.2.462"
+  },
+  "version": "1.0.0",
+  "description": "This repository contains the Mintlify documentation site for **Grounded Systems**.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lagebj/grounded-systems.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/lagebj/grounded-systems/issues"
+  },
+  "homepage": "https://github.com/lagebj/grounded-systems#readme"
+}
