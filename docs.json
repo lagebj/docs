@@ -8,6 +8,10 @@
   },
   "logo": "/images/og-image.png",
   "favicon": "/images/og-image.png",
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
   "navigation": {
     "$ref": "./config/navigation.json"
   },
