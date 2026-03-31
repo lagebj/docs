@@ -1,7 +1,7 @@
 {
   "tabs": [
     {
-      "tab": "Start",
+      "tab": "Introduction",
       "groups": [
         {
           "group": "Grounded Systems",
@@ -17,7 +17,7 @@
       "tab": "Principles",
       "groups": [
         {
-          "group": "Core",
+          "group": "Principles",
           "pages": [
             "principles/index",
             "principles/core-principles",
@@ -32,7 +32,7 @@
       "tab": "Playbook",
       "groups": [
         {
-          "group": "Field Guide",
+          "group": "Playbook",
           "pages": [
             "playbook/index",
             "playbook/entry-gate",
@@ -51,7 +51,7 @@
       "tab": "Cases",
       "groups": [
         {
-          "group": "Examples",
+          "group": "Cases",
           "pages": [
             "cases/index",
             "cases/legacy-modernization",
