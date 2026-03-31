@@ -1,11 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "luma",
   "name": "Grounded Systems",
   "description": "Practical modernization from inside the real system.",
   "colors": {
     "primary": "#111111"
   },
+  "logo": "/images/og-image.png",
+  "favicon": "/images/favicon.ico",
   "navigation": {
     "$ref": "./config/navigation.json"
   },
