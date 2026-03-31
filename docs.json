@@ -7,7 +7,7 @@
     "primary": "#111111"
   },
   "logo": "/images/og-image.png",
-  "favicon": "/images/favicon.ico",
+  "favicon": "/images/og-image.png",
   "navigation": {
     "$ref": "./config/navigation.json"
   },
@@ -15,13 +15,13 @@
     "links": [
       {
         "label": "GitHub",
-        "href": "https://github.com/lagebj/grounded-systems"
+        "href": "https://github.com/lagebj/docs"
       }
     ]
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/lagebj/grounded-systems"
+      "github": "https://github.com/lagebj/docs"
     }
   }
 }

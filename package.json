@@ -12,14 +12,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lagebj/grounded-systems.git"
+    "url": "git+https://github.com/lagebj/docs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/lagebj/grounded-systems/issues"
+    "url": "https://github.com/lagebj/docs/issues"
   },
-  "homepage": "https://github.com/lagebj/grounded-systems#readme"
+  "homepage": "https://github.com/lagebj/docs#readme"
 }
