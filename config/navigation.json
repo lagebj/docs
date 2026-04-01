@@ -1,25 +1,35 @@
 {
   "tabs": [
     {
-      "tab": "Introduction",
+      "tab": "Grounded Systems",
       "groups": [
         {
           "group": "Grounded Systems",
           "pages": [
             "index"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "tab": "Customers",
+      "groups": [
         {
-          "group": "For customers",
+          "group": "For Customers",
           "pages": [
             "customers/index",
             "customers/what-we-help-with",
             "customers/how-we-work",
             "customers/when-we-are-a-fit"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "tab": "Practitioners",
+      "groups": [
         {
-          "group": "For practitioners",
+          "group": "For Practitioners",
           "pages": [
             "practitioners/index",
             "practitioners/who-thrives-here",

@@ -2,12 +2,12 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "luma",
   "name": "Grounded Systems",
-  "description": "Practical modernization from inside the real system.",
+  "description": "Modernize from within, with a small senior team that helps yours make real progress without giving up ownership.",
   "colors": {
     "primary": "#111111"
   },
   "logo": "/images/og-image.png",
-  "favicon": "/images/og-image.png",
+  "favicon": "/images/favicon.ico",
   "appearance": {
     "default": "light",
     "strict": true
