@@ -1,0 +1,52 @@
+:root {
+  --gs-chrome-shadow: 0 10px 28px rgba(17, 17, 17, 0.08);
+  --gs-border-muted: rgba(17, 17, 17, 0.1);
+  --gs-surface-soft: linear-gradient(180deg, rgba(17, 17, 17, 0.03) 0%, rgba(17, 17, 17, 0.01) 100%);
+  --gs-space-vertical: clamp(2.5rem, 2rem + 1vw, 3.5rem);
+}
+
+#navbar {
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gs-border-muted);
+  box-shadow: 0 6px 24px rgba(17, 17, 17, 0.05);
+}
+
+#navbar .nav-tabs {
+  gap: 0.35rem;
+}
+
+#navbar .nav-tabs a {
+  border-radius: 999px;
+  padding: 0.32rem 0.7rem;
+}
+
+#content-area {
+  padding-top: var(--gs-space-vertical);
+}
+
+.card {
+  border: 1px solid var(--gs-border-muted);
+  border-radius: 14px;
+  background: var(--gs-surface-soft);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--gs-chrome-shadow);
+  border-color: rgba(17, 17, 17, 0.2);
+}
+
+.card:focus-within {
+  border-color: rgba(17, 17, 17, 0.35);
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+}
+
+#footer {
+  border-top: 1px solid var(--gs-border-muted);
+}
+
+.toc {
+  border-left: 1px solid var(--gs-border-muted);
+  padding-left: 1rem;
+}
