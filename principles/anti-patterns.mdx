@@ -3,90 +3,90 @@ title: Anti-patterns
 description: The recurring traps Grounded Systems is designed to reject.
 ---
 
-These are the recurring ways modernization work becomes expensive, fragile, or misleading.
+Anti-patterns matter because the wrong modernization move often looks sensible before its cost becomes visible.
 
-They matter because they often look like progress early on.
+Most traps promise speed, certainty, or cleanliness up front. The long-term cost is usually more dependency, blurrier ownership, or harder recovery.
 
 ## Feature factory drift
 
-This happens when the outside unit becomes valued mainly for shipping output.
+This trap appears when outside contributors become valued mainly for output volume and the client team quietly shifts from owner to requester.
 
-### Signals
+It is attractive because visible throughput creates quick confidence for sponsors.
 
-- the client stops participating deeply
-- outside people become the delivery center
-- progress depends more on external effort than internal growth
+Watch for:
 
-### Consequence
+- outside contributors treated as the delivery center
+- client participation thinning out over time
+- success measured only in shipped volume
 
-Movement may increase, but client capability does not.
+The cost is simple: movement increases, but client capability does not.
 
 ## Modernize elsewhere, migrate later
 
-This happens when change begins by building a separate future-state world and promising migration later.
+This trap appears when teams build a cleaner parallel world first and postpone integration with the live system.
 
-### Signals
+It is attractive because it feels technically cleaner and easier to narrate.
 
-- heavy future-state diagrams
-- weak connection to current operational reality
-- rising handover and migration burden
+Watch for:
 
-### Consequence
+- future-state architecture dominating current-state work
+- thin links to operational constraints
+- migration complexity deferred as a later problem
 
-A second problem space is created before the first one is improved.
+The cost is a second problem space before the first one is improved.
 
 ## Premature tooling
 
-This happens when tools are introduced before ownership, context, and friction are properly understood.
+This trap appears when tools become the center of the plan before ownership and constraints are grounded.
 
-### Signals
+It is attractive because tools provide fast structure and visible direction.
 
-- the tool becomes the story
-- local skills and current platforms are ignored
-- ownership questions are deferred
+Watch for:
 
-### Consequence
+- tooling decisions ahead of ownership decisions
+- low attention to existing system behavior
+- context questions postponed until implementation
 
-The organization inherits new load without reducing the real constraint.
+The cost is inherited complexity without relief on the real bottleneck.
 
 ## No-exit consulting
 
-This happens when there is no credible taper path.
+This trap appears when there is no credible taper path and outside presence remains structurally central.
 
-### Signals
+It is attractive because continuous support feels safer than designing independence.
 
-- the client still waits for outside decisions
-- routines pause when the outside unit steps back
-- taper keeps slipping without clear cause
+Watch for:
 
-### Consequence
+- routines pause when outside actors step back
+- taper repeatedly delayed without a clear reason
+- client teams waiting for outside judgment on routine calls
 
-Dependency becomes the product.
+The cost is dependency becoming the product.
 
 ## Local success sold as systemic change
 
-This happens when one improved team is used as proof that the wider organization has transformed.
+This trap appears when one strong local win is used as proof that the wider organization has transformed.
 
-### Signals
+It is attractive because success stories are easier than replication work.
 
-- success stories detached from replication
-- no evidence that conditions are being reproduced elsewhere
-- local movement turned into broad narrative
+Watch for:
 
-### Consequence
+- broad claims supported by one team example
+- no evidence of repeatable conditions elsewhere
+- narrative scale greater than operational scale
 
-False confidence hides the real scale of the problem.
+The cost is false confidence masking unresolved system constraints.
 
 ## Ritual imitation without ownership
 
-This happens when teams copy visible practices without internalizing the reasoning behind them.
+This trap appears when teams copy visible practices but do not internalize the reasoning behind them.
 
-### Signals
+It is attractive because visible form is faster to copy than judgment.
 
-- ceremonies survive, but judgment does not
-- language is copied, but trade-offs remain implicit
-- teams revert under pressure
+Watch for:
 
-### Consequence
+- ceremonies retained while trade-offs stay implicit
+- language copied without behavioral change
+- quick reversion under pressure
 
-The form survives, but the capability does not.
+The cost is a process-shaped shell with no durable capability inside it.
