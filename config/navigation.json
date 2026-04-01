@@ -83,6 +83,7 @@
         {
           "group": "Reference",
           "pages": [
+            "reference/index",
             "reference/glossary",
             "reference/faq",
             "reference/contribution-model"
