@@ -1,19 +1,14 @@
 {
   "tabs": [
     {
-      "tab": "Grounded Systems",
+      "tab": "Start",
       "groups": [
         {
           "group": "Grounded Systems",
           "pages": [
             "index"
           ]
-        }
-      ]
-    },
-    {
-      "tab": "Customers",
-      "groups": [
+        },
         {
           "group": "For Customers",
           "pages": [
@@ -22,12 +17,7 @@
             "customers/how-we-work",
             "customers/when-we-are-a-fit"
           ]
-        }
-      ]
-    },
-    {
-      "tab": "Practitioners",
-      "groups": [
+        },
         {
           "group": "For Practitioners",
           "pages": [
@@ -40,7 +30,7 @@
       ]
     },
     {
-      "tab": "Principles",
+      "tab": "Method",
       "groups": [
         {
           "group": "Principles",
@@ -51,12 +41,7 @@
             "principles/engagement-model",
             "principles/grounded-practitioners"
           ]
-        }
-      ]
-    },
-    {
-      "tab": "Playbook",
-      "groups": [
+        },
         {
           "group": "Playbook",
           "pages": [

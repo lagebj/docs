@@ -12,10 +12,29 @@
     "default": "light",
     "strict": true
   },
+  "fonts": {
+    "heading": {
+      "family": "Fraunces"
+    },
+    "body": {
+      "family": "Source Sans 3"
+    }
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs"
+  },
   "navigation": {
     "$ref": "./config/navigation.json"
   },
   "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Start a Conversation",
+      "href": "https://github.com/lagebj/docs/issues/new"
+    },
     "links": [
       {
         "label": "GitHub",
