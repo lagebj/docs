@@ -1,15 +1,18 @@
 :root {
-  --gs-chrome-shadow: 0 10px 28px rgba(17, 17, 17, 0.08);
-  --gs-border-muted: rgba(17, 17, 17, 0.1);
-  --gs-surface-soft: linear-gradient(180deg, rgba(17, 17, 17, 0.03) 0%, rgba(17, 17, 17, 0.01) 100%);
-  --gs-surface-band: linear-gradient(180deg, rgba(17, 17, 17, 0.055) 0%, rgba(17, 17, 17, 0.015) 100%);
+  --gs-brand-blue: #1d4ed8;
+  --gs-brand-slate: #334155;
+  --gs-chrome-shadow: 0 14px 34px rgba(30, 64, 175, 0.12);
+  --gs-border-muted: rgba(51, 65, 85, 0.2);
+  --gs-surface-soft: linear-gradient(180deg, rgba(219, 234, 254, 0.5) 0%, rgba(248, 250, 252, 0.96) 100%);
+  --gs-surface-band: linear-gradient(180deg, rgba(191, 219, 254, 0.42) 0%, rgba(241, 245, 249, 0.92) 100%);
   --gs-space-vertical: clamp(2.5rem, 2rem + 1vw, 3.5rem);
 }
 
 #navbar {
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--gs-border-muted);
-  box-shadow: 0 6px 24px rgba(17, 17, 17, 0.05);
+  box-shadow: 0 7px 24px rgba(30, 41, 59, 0.08);
+  background: rgba(255, 255, 255, 0.93);
 }
 
 #navbar .nav-tabs {
@@ -19,6 +22,11 @@
 #navbar .nav-tabs a {
   border-radius: 999px;
   padding: 0.32rem 0.7rem;
+}
+
+#navbar .nav-tabs a[aria-current="page"] {
+  background: rgba(29, 78, 216, 0.14);
+  color: var(--gs-brand-blue);
 }
 
 #navbar img {
@@ -46,12 +54,12 @@
 }
 
 .gs-overview-band .card {
-  border-color: rgba(17, 17, 17, 0.13);
+  border-color: rgba(51, 65, 85, 0.24);
 }
 
 .gs-overview-band .card:first-child {
-  border-color: rgba(17, 17, 17, 0.25);
-  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.07);
+  border-color: rgba(29, 78, 216, 0.36);
+  box-shadow: 0 12px 28px rgba(29, 78, 216, 0.11);
 }
 
 .card {
@@ -64,12 +72,26 @@
 .card:hover {
   transform: translateY(-2px);
   box-shadow: var(--gs-chrome-shadow);
-  border-color: rgba(17, 17, 17, 0.2);
+  border-color: rgba(29, 78, 216, 0.35);
 }
 
 .card:focus-within {
-  border-color: rgba(17, 17, 17, 0.35);
-  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+  border-color: rgba(29, 78, 216, 0.44);
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.16);
+}
+
+.card p {
+  color: var(--gs-brand-slate);
+}
+
+body:has(.gs-hub-page) #pagination,
+body:has(.gs-hub-page) .pagination,
+body:has(.gs-hub-page) nav[aria-label="Pagination"] {
+  display: none !important;
+}
+
+body:has(.gs-hub-page) .breadcrumbs {
+  display: none !important;
 }
 
 #footer {
