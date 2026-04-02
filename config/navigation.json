@@ -4,13 +4,13 @@
       "tab": "Start",
       "groups": [
         {
-          "group": "Grounded Systems",
+          "group": "Overview",
           "pages": [
             "index"
           ]
         },
         {
-          "group": "For Customers",
+          "group": "Customer Guide",
           "pages": [
             "customers/index",
             "customers/what-we-help-with",
@@ -19,7 +19,7 @@
           ]
         },
         {
-          "group": "For Practitioners",
+          "group": "Practitioner Guide",
           "pages": [
             "practitioners/index",
             "practitioners/who-thrives-here",
@@ -33,7 +33,7 @@
       "tab": "Method",
       "groups": [
         {
-          "group": "Principles",
+          "group": "Principle Set",
           "pages": [
             "principles/index",
             "principles/core-principles",
@@ -43,7 +43,7 @@
           ]
         },
         {
-          "group": "Playbook",
+          "group": "Playbook Guides",
           "pages": [
             "playbook/index",
             "playbook/entry-gate",
@@ -62,7 +62,7 @@
       "tab": "Cases",
       "groups": [
         {
-          "group": "Cases",
+          "group": "Case Library",
           "pages": [
             "cases/index",
             "cases/legacy-modernization",
@@ -76,7 +76,7 @@
       "tab": "Reference",
       "groups": [
         {
-          "group": "Reference",
+          "group": "Reference Library",
           "pages": [
             "reference/index",
             "reference/glossary",
