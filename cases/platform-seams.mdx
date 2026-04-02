@@ -1,6 +1,6 @@
 ---
 title: Platform seams
-description: A case pattern where the real slowdown lives between teams rather than inside one team’s code.
+description: A case pattern where the real slowdown lives between teams rather than inside one team's code.
 ---
 
 Many delivery problems are described as team problems when they are really seam problems.
@@ -9,37 +9,19 @@ A product team may appear slow, blocked, or inconsistent, but the real friction 
 
 ## The real constraint
 
-The issue is often one or more of these:
-
-- unclear service boundaries
-- weak interface definitions
-- approval paths that no longer match reality
-- dependency on teams with different incentives
-- work that crosses ownership lines without shared language
+The real constraint is usually an unresolved interface: unclear service boundaries, weak definitions, mismatched approval paths, and dependencies crossing ownership lines without shared language.
 
 ## The wrong move
 
-The wrong move is to focus only on the local team’s execution.
-
-That usually creates pressure without actually reducing the bottleneck.
+The wrong move is to focus only on the local team's execution. That often increases pressure on one team while leaving the cross-team bottleneck intact and mislabeled as local underperformance.
 
 ## The grounded move
 
-Treat the seam as part of the work.
-
-That means:
-
-- making the dependency visible
-- naming the ownership boundary clearly
-- bringing the neighboring team into the real problem
-- improving the interface, not just the local behavior
+Treat the seam as part of the work by making dependency visible, naming ownership boundaries clearly, involving neighboring teams in the real constraint, and improving the interface instead of only local behavior.
 
 ## What to watch
 
-- whether the teams describe the seam differently
-- whether “not supported” is standing in for “not yet clarified”
-- whether approval exists without clear accountability
-- whether the local team is being blamed for a cross-team design problem
+Watch for teams describing the seam differently, "not supported" standing in for "not yet clarified," approval without accountability, and local blame for what is fundamentally a cross-team design problem.
 
 ## What success looks like
 
