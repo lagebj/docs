@@ -21,6 +21,7 @@ The site serves two roles:
 ## Local development
 
 Install dependencies and run Mintlify locally.
+Use an LTS Node.js version (Mintlify does not support Node 25+).
 
 ```bash
 npm install
