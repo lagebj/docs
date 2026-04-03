@@ -11,15 +11,6 @@ It is how you learn where change gets stuck, who carries the real risk, what can
   Good discovery does not produce a polished diagnosis deck. It makes the real constraints visible early enough to choose safer moves.
 </p>
 
-<div className="gs-overview-band">
-  <div className="gs-chip-row">
-    <span>Read repeated patterns</span>
-    <span>Clarify real ownership</span>
-    <span>Name protected constraints</span>
-    <span>Separate success definitions</span>
-  </div>
-</div>
-
 ## Find where friction keeps repeating
 
 Look for repeated delays, fragile handoffs, and decision loops that never close. The repeated pattern usually matters more than any single incident.
@@ -38,23 +29,11 @@ Sponsors, delivery teams, platform groups, and managers often use the same word 
 
 ## Useful discovery questions
 
-<CardGroup cols={2}>
-  <Card title="Pressure points">
-    What is hard here that should not be this hard?
-  </Card>
-  <Card title="Repeated slowdowns">
-    Where does work slow down in the same way every week?
-  </Card>
-  <Card title="Dependency check">
-    What still depends on outsiders for routine movement?
-  </Card>
-  <Card title="Durability check">
-    What would remain fragile even if throughput improved next month, and what would make this team less dependent six months from now?
-  </Card>
-</CardGroup>
+- <span className="gs-label">Pressure points:</span> What is hard here that should not be this hard?
+- <span className="gs-label">Repeated slowdowns:</span> Where does work slow down in the same way every week?
+- <span className="gs-label">Dependency check:</span> What still depends on outsiders for routine movement?
+- <span className="gs-label">Durability check:</span> What would remain fragile even if throughput improved next month, and what would make this team less dependent six months from now?
 
 ## Failure mode to avoid
 
-<Callout type="warning" title="Do not jump from symptom to solution shape">
-  If the tooling discussion becomes clearer than the ownership discussion, discovery is not complete.
-</Callout>
+<span className="gs-label">Failure mode:</span> if the tooling discussion becomes clearer than the ownership discussion, discovery is not complete.
