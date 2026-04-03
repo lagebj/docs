@@ -1,10 +1,12 @@
 :root {
   --gs-brand-blue: #1d4ed8;
+  --gs-brand-blue-strong: #1e40af;
   --gs-brand-slate: #334155;
   --gs-chrome-shadow: 0 14px 34px rgba(30, 64, 175, 0.12);
   --gs-border-muted: rgba(51, 65, 85, 0.2);
   --gs-surface-soft: linear-gradient(180deg, rgba(219, 234, 254, 0.5) 0%, rgba(248, 250, 252, 0.96) 100%);
   --gs-surface-band: linear-gradient(180deg, rgba(191, 219, 254, 0.42) 0%, rgba(241, 245, 249, 0.92) 100%);
+  --gs-active-surface: rgba(219, 234, 254, 0.54);
   --gs-space-vertical: clamp(2.5rem, 2rem + 1vw, 3.5rem);
 }
 
@@ -179,6 +181,38 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
 .toc {
   border-left: 1px solid var(--gs-border-muted);
   padding-left: 1rem;
+}
+
+.sidebar .sidebar-item[aria-current="page"],
+.sidebar a[aria-current="page"] {
+  background: var(--gs-active-surface);
+  color: var(--gs-brand-blue-strong);
+  border-radius: 8px;
+  font-weight: 700;
+  border-left: 2px solid rgba(30, 64, 175, 0.55);
+  padding-left: calc(0.75rem - 2px);
+}
+
+.sidebar .sidebar-item[aria-current="page"] .group-label,
+.sidebar a[aria-current="page"] .group-label {
+  color: var(--gs-brand-blue-strong);
+}
+
+.toc a[aria-current="true"],
+.toc a[aria-current="location"],
+.toc a.active {
+  color: var(--gs-brand-blue-strong);
+  font-weight: 700;
+  text-decoration: none;
+  border-left: 2px solid rgba(30, 64, 175, 0.5);
+  margin-left: -1rem;
+  padding-left: calc(1rem - 2px);
+}
+
+.toc a[aria-current="true"]::before,
+.toc a[aria-current="location"]::before,
+.toc a.active::before {
+  background: var(--gs-brand-blue-strong);
 }
 
 @media (max-width: 768px) {
