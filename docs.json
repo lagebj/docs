@@ -6,8 +6,8 @@
   "colors": {
     "primary": "#1d4ed8"
   },
-  "logo": "/images/logo-navbar.svg",
-  "favicon": "/images/favicon.ico",
+  "logo": "/images/og-image.png",
+  "favicon": "/images/og-image.png",
   "appearance": {
     "default": "light",
     "strict": true
