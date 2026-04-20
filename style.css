@@ -53,6 +53,8 @@
   line-height: 1.55;
   max-width: 70ch;
   margin-bottom: 1.3rem;
+  color: var(--gs-brand-slate);
+  font-weight: 400;
 }
 
 .gs-overview-band {
@@ -92,6 +94,13 @@
 
 .card p {
   color: var(--gs-brand-slate);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.card h3 {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
 }
 
 .gs-signal-grid {
@@ -161,7 +170,13 @@ body:has(.gs-hub-page) .breadcrumbs {
 
 body:has(.gs-hub-page) .sidebar .group-label {
   color: #1e3a8a;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+body:has(.gs-hub-page) .sidebar .group-label:first-child {
+  margin-top: 0.5rem;
 }
 
 body:has(.gs-hub-page) .sidebar .sidebar-item {
