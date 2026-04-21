@@ -6,8 +6,11 @@
   "colors": {
     "primary": "#1e40af"
   },
-  "logo": "/images/og-image.png",
-  "favicon": "/images/og-image.png",
+  "logo": {
+    "light": "/images/logo-navbar.svg",
+    "dark": "/images/logo-navbar-white.svg"
+  },
+  "favicon": "/images/favicon.ico",
   "appearance": {
     "default": "light",
     "strict": true
@@ -23,12 +26,8 @@
   "icons": {
     "library": "lucide"
   },
-  "styling": {
-    "eyebrows": "breadcrumbs"
-  },
   "search": {
-    "prompt": "Search documentation...",
-    "location": "top"
+    "prompt": "Search documentation..."
   },
   "seo": {
     "metatags": {
@@ -54,6 +53,18 @@
   "footer": {
     "socials": {
       "github": "https://github.com/lagebj/docs"
+    }
+  },
+  "background": {
+    "decoration": "grid"
+  },
+  "styling": {
+    "eyebrows": "breadcrumbs",
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "github-dark"
+      }
     }
   }
 }

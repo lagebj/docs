@@ -1,0 +1,13 @@
+<svg width="460" height="72" viewBox="0 0 460 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="gsLogoTitle gsLogoDesc">
+  <title id="gsLogoTitle">Grounded Systems</title>
+  <desc id="gsLogoDesc">Grounded Systems wordmark with a rooted mark</desc>
+  <g>
+    <circle cx="28" cy="24" r="9" fill="#ffffff"/>
+    <path d="M28 33V55" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M28 44L17 55" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M28 44L39 55" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M20 18C21 13 24 10 28 10C32 10 35 13 36 18" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="58" y="31" fill="#ffffff" font-family="'Source Sans 3', sans-serif" font-size="26" font-weight="700" letter-spacing="0.4">Grounded</text>
+  <text x="58" y="56" fill="#ffffff" font-family="'Source Sans 3', sans-serif" font-size="24" font-weight="600" letter-spacing="0.3">Systems</text>
+</svg>
