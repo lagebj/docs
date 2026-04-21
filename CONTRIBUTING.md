@@ -12,15 +12,25 @@ Thank you for your interest in contributing to our documentation! This guide wil
 
 ### Option 2: Local development
 
-1. Fork and clone this repository
-2. Install the Mintlify CLI: `npm i -g mint`
-3. Create a branch for your changes
-4. Make changes
-5. Navigate to the docs directory and run `mint dev`
-6. Preview your changes at `http://localhost:3000`
-7. Commit your changes and submit a pull request
+1. Follow the PR workflow described in [docs/pr-workflow.md](docs/pr-workflow.md)
+2. Fork and clone this repository
+3. Install the Mintlify CLI: `npm i -g mint`
+4. Create a branch for your changes following Conventional Commits
+5. Make changes
+6. Navigate to the docs directory and run `mint dev`
+7. Preview your changes at `http://localhost:3000`
+8. Commit your changes using Conventional Commits format
+9. Submit a pull request following the PR workflow
 
 For contribution scope and review expectations, see the [contribution model](reference/contribution-model.mdx).
+
+## Conventional Commits
+
+All commits and PR titles must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+- Format: `type(scope): description`
+- Valid types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`, `build`, `ci`
+- Example: `feat(auth): add login functionality`
+- All changes require human peer review through PRs
 
 ## Writing guidelines
 
