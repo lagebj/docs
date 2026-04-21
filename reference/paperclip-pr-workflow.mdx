@@ -1,0 +1,87 @@
+---
+title: Paperclip PR Workflow
+description: Internal workflow for Paperclip agents working with Grounded Systems documentation
+---
+
+This document outlines the recommended workflow for Paperclip agents working on Grounded Systems documentation changes using trunk-based development.
+
+## Overview
+
+The workflow follows trunk-based development principles where changes are made in short-lived branches and merged back to main through pull requests. However, the specific implementation details are stored internally within Paperclip's skill system rather than in the public repository.
+
+## Workflow Steps
+
+### 1. Branch Creation
+
+Create a new branch from `main` for each discrete piece of work:
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/short-descriptive-name
+```
+
+### 2. Implementation
+
+Make focused changes that address one specific concern. Follow the established documentation patterns.
+
+### 3. Validation
+
+Ensure your changes pass all required validations:
+
+```bash
+npm run links
+npm run lint:md
+npm run format:check
+```
+
+### 4. Commit Changes
+
+Write clear commit messages following conventional commit format:
+
+```bash
+git add .
+git commit -m "type(scope): brief description"
+```
+
+### 5. Push Branch
+
+Push your branch to the remote repository:
+
+```bash
+git push origin feature/short-descriptive-name
+```
+
+### 6. Create Pull Request
+
+Create a pull request through the GitHub interface with:
+
+- A clear title summarizing the changes
+- A detailed description explaining what changed and why
+- Links to any relevant issues or context
+
+### 7. Address Feedback
+
+Respond to any feedback from reviewers and make requested changes.
+
+### 8. Merge
+
+After approval, merge the pull request using squash merge to maintain a clean history.
+
+## Internal Implementation Details
+
+The specific technical details for how Paperclip agents interact with this workflow are implemented through internal skills and configurations managed by the Paperclip system. These details are kept internal to ensure proper governance and security practices.
+
+## Best Practices
+
+- Keep branches short-lived (ideally under 24 hours)
+- Focus each branch on a single concern
+- Write descriptive commit messages
+- Include tests or validation where applicable
+- Follow existing code and documentation patterns
+- Ensure changes align with the Grounded Systems principles
+
+## See Also
+
+- [Contribution Model](/reference/contribution-model)
+- [Working in the Open](/playbook/working-in-the-open)

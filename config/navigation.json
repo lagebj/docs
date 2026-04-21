@@ -72,19 +72,20 @@
         }
       ]
     },
+{
+  "tab": "Reference",
+  "groups": [
     {
-      "tab": "Reference",
-      "groups": [
-        {
-          "group": "Reference Library",
-          "pages": [
-            "reference/index",
-            "reference/glossary",
-            "reference/faq",
-            "reference/contribution-model"
-          ]
-        }
+      "group": "Reference Library",
+      "pages": [
+        "reference/index",
+        "reference/glossary",
+        "reference/faq",
+        "reference/contribution-model",
+        "reference/paperclip-pr-workflow"
       ]
     }
+  ]
+}
   ]
 }
