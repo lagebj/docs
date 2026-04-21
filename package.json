@@ -9,8 +9,11 @@
     "verify": "npm run links && npm run lint:md && npm run format:check"
   },
   "devDependencies": {
+    "autoprefixer": "^10.5.0",
     "markdownlint-cli": "^0.48.0",
-    "mintlify": "^4.0.0"
+    "mintlify": "^4.0.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^4.2.3"
   },
   "version": "0.5.0",
   "description": "This repository contains the Mintlify documentation site for **Grounded Systems**.",
@@ -26,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/lagebj/docs/issues"
   },
-  "homepage": "https://github.com/lagebj/docs#readme"
+  "homepage": "https://github.com/lagebj/docs#readme",
+  "dependencies": {
+    "fuse.js": "^7.3.0"
+  }
 }
