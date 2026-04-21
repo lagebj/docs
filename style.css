@@ -393,6 +393,211 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   font-weight: 500;
 }
 
+/* Button Components */
+.gs-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 150ms ease;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--gs-font-family);
+}
+
+.gs-button:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
+.gs-button-primary {
+  background-color: var(--gs-brand-blue);
+  color: white;
+}
+
+.gs-button-primary:hover {
+  background-color: #1e3a8a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+}
+
+.gs-button-primary:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
+.gs-button-secondary {
+  background-color: white;
+  color: var(--gs-brand-blue);
+  border: 1px solid var(--gs-border-muted);
+}
+
+.gs-button-secondary:hover {
+  background-color: #f1f5f9;
+  border-color: var(--gs-brand-blue);
+}
+
+.gs-button-secondary:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
+.gs-button-danger {
+  background-color: var(--gs-danger);
+  color: white;
+}
+
+.gs-button-danger:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+}
+
+.gs-button-danger:focus {
+  outline: 2px solid var(--gs-danger);
+  outline-offset: 2px;
+}
+
+.gs-button-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.gs-button-lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Enhanced Card Component */
+.gs-card {
+  border: 1px solid var(--gs-border-muted);
+  border-radius: 16px;
+  background: var(--gs-surface-soft);
+  padding: 1.5rem;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.gs-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--gs-chrome-shadow);
+  border-color: rgba(29, 78, 216, 0.4);
+}
+
+.gs-card h3 {
+  color: var(--gs-brand-blue);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.gs-card-link {
+  color: var(--gs-brand-blue);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.gs-card-link:hover {
+  text-decoration: underline;
+}
+
+/* Alert Components */
+.gs-alert {
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.gs-alert-info {
+  background-color: #dbeafe;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+}
+
+.gs-alert-success {
+  background-color: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #059669;
+}
+
+.gs-alert-warning {
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #d97706;
+}
+
+.gs-alert-danger {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.gs-alert-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+}
+
+.gs-alert-content {
+  flex: 1;
+}
+
+.gs-alert-title {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.gs-alert-description {
+  margin: 0;
+}
+
+/* Tag/Badge Components */
+.gs-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.gs-tag-primary {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.gs-tag-success {
+  background-color: #dcfce7;
+  color: #059669;
+}
+
+.gs-tag-warning {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.gs-tag-danger {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
 /* Premium documentation enhancements */
 .premium-callout {
   background: linear-gradient(135deg, rgba(219, 234, 254, 0.3) 0%, rgba(238, 242, 255, 0.3) 100%);
@@ -504,6 +709,22 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   .prose a {
     padding: 0.2rem 0; /* Better touch targets for links */
   }
+  
+  /* Improved button touch targets */
+  .gs-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Enhanced card layout for mobile */
+  .gs-card {
+    min-height: auto;
+  }
+  
+  /* Improved alert spacing on mobile */
+  .gs-alert {
+    padding: 0.875rem 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -570,5 +791,34 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
 
   .gs-signal-card h3 {
     font-size: 1rem;
+  }
+}
+
+/* Accessibility enhancements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gs-button,
+  .gs-card,
+  .card,
+  .gs-signal-card {
+    transition: none;
+  }
+  
+  .card:hover,
+  .gs-card:hover,
+  .gs-signal-card:hover {
+    transform: none;
   }
 }
