@@ -4,7 +4,7 @@
   "name": "Grounded Systems",
   "description": "Modernize from within, with a small senior team that helps yours make real progress without giving up ownership.",
   "colors": {
-    "primary": "#1d4ed8"
+    "primary": "#1e40af"
   },
   "logo": "/images/og-image.png",
   "favicon": "/images/og-image.png",
@@ -25,6 +25,15 @@
   },
   "styling": {
     "eyebrows": "breadcrumbs"
+  },
+  "search": {
+    "prompt": "Search documentation...",
+    "location": "top"
+  },
+  "seo": {
+    "metatags": {
+      "viewport": "width=device-width, initial-scale=1.0"
+    }
   },
   "navigation": {
     "$ref": "./config/navigation.json"
