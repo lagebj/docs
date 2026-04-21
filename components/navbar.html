@@ -5,6 +5,11 @@
       <img src="/images/logo-navbar.svg" alt="Grounded Systems Logo" />
     </a>
     
+    <!-- Search Component -->
+    <div class="hidden md:block" id="desktop-search">
+      <!-- Search component will be injected here -->
+    </div>
+    
     <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
       <div class="hamburger">
         <span></span>
@@ -20,3 +25,25 @@
 </header>
 
 <script src="/components/navigation.js"></script>
+<script src="/scripts/search.js"></script>
+<script>
+// Inject search component into the navbar
+document.addEventListener('DOMContentLoaded', () => {
+  const searchContainer = document.getElementById('desktop-search');
+  if (searchContainer) {
+    fetch('/components/search-component.html')
+      .then(response => response.text())
+      .then(html => {
+        searchContainer.innerHTML = html;
+        
+        // Load search component functionality
+        if (typeof SearchComponent !== 'undefined') {
+          new SearchComponent();
+        }
+      })
+      .catch(error => {
+        console.error('Failed to load search component:', error);
+      });
+  }
+});
+</script>
