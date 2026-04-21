@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Introduction",
+    "url": "/",
+    "content": "Welcome to Grounded Systems documentation. Modernize from within, with a small senior team that helps yours make real progress without giving up ownership."
+  },
+  {
+    "title": "Brand Guidelines",
+    "url": "/design/branding",
+    "content": "Our visual identity includes a distinctive blue (#1e40af) and slate (#334155) color palette. We use Fraunces for headings and Source Sans 3 for body text. Logos are available in light and dark variants."
+  },
+  {
+    "title": "Design System",
+    "url": "/design/design-system",
+    "content": "Core UI components and patterns遵循 our brand guidelines with consistent spacing, typography, and interaction behaviors. Includes cards, callouts, navigation, and responsive layouts."
+  },
+  {
+    "title": "UX Strategy",
+    "url": "/design/ux-strategy",
+    "content": "User-centric documentation experience with clarity, discoverability, consistency, responsiveness, and exit strategies. Guides for prospective customers, new practitioners, and existing customers."
+  },
+  {
+    "title": "User Flow",
+    "url": "/design/user-flow",
+    "content": "Information architecture mapping user journeys from landing to conversion, with clear pathways through documentation sections and call-to-action touchpoints."
+  },
+  {
+    "title": "Contribution Model",
+    "url": "/reference/contribution-model",
+    "content": "How to contribute to Grounded Systems documentation following our governance-first approach with clear roles, processes, and quality standards."
+  },
+  {
+    "title": "FAQ",
+    "url": "/reference/faq",
+    "content": "Frequently asked questions about Grounded Systems methodology, implementation approaches, and common challenges with modernization in place."
+  },
+  {
+    "title": "Glossary",
+    "url": "/reference/glossary",
+    "content": "Definitions of key terms used throughout Grounded Systems framework including Trojan Horse, Capability Over Dependency, and Human-Centered Modernization."
+  },
+  {
+    "title": "Premium Components",
+    "url": "/reference/premium-components",
+    "content": "Enhanced UI components including premium callouts, card variations, and improved typography for creating engaging documentation experiences."
+  }
+]
