@@ -24,6 +24,14 @@ class SearchComponent {
       
       this.fuse = new Fuse(searchData, options);
       this.setupEventListeners();
+      
+      // Track search initialization in analytics
+      if (window.analytics) {
+        window.analytics.trackCustomEvent('search_initialized', {
+          timestamp: new Date().toISOString(),
+          indexSize: searchData.length
+        });
+      }
     } catch (error) {
       console.error('Failed to initialize search:', error);
     }
@@ -32,9 +40,28 @@ class SearchComponent {
   setupEventListeners() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
+      let searchTimeout;
+      
       searchInput.addEventListener('input', (e) => {
-        this.performSearch(e.target.value);
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          this.performSearch(e.target.value);
+        }, 300); // Debounce search by 300ms
       });
+      
+      // Handle search result clicks for analytics
+      const resultsContainer = document.getElementById('search-results');
+      if (resultsContainer) {
+        resultsContainer.addEventListener('click', (e) => {
+          const resultLink = e.target.closest('a');
+          if (resultLink && window.analytics) {
+            window.analytics.trackCustomEvent('search_result_clicked', {
+              url: resultLink.href,
+              text: resultLink.textContent.trim()
+            });
+          }
+        });
+      }
     }
   }
 
@@ -46,6 +73,15 @@ class SearchComponent {
 
     const results = this.fuse.search(query);
     this.displayResults(results.map(result => result.item));
+    
+    // Track search queries in analytics
+    if (window.analytics && results.length > 0) {
+      window.analytics.trackCustomEvent('search_performed', {
+        query: query,
+        resultCount: results.length,
+        timestamp: new Date().toISOString()
+      });
+    }
   }
 
   displayResults(results) {
