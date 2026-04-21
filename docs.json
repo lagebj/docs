@@ -17,10 +17,10 @@
   },
   "fonts": {
     "heading": {
-      "family": "Fraunces"
+      "family": "Inter"
     },
     "body": {
-      "family": "Source Sans 3"
+      "family": "Inter"
     }
   },
   "icons": {
