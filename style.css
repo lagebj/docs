@@ -1,5 +1,5 @@
 :root {
-  --gs-brand-blue: #1d4ed8;
+  --gs-brand-blue: #1e40af;
   --gs-brand-slate: #334155;
   --gs-chrome-shadow: 0 14px 34px rgba(30, 64, 175, 0.12);
   --gs-border-muted: rgba(51, 65, 85, 0.2);
@@ -34,6 +34,11 @@
   box-shadow: 0 2px 6px rgba(29, 78, 216, 0.1);
 }
 
+#navbar .nav-tabs a:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
 #navbar img {
   max-height: 1.9rem;
   width: auto;
@@ -55,6 +60,12 @@
   text-decoration: none;
   border-bottom: 1px solid var(--gs-brand-blue);
   opacity: 0.9;
+}
+
+.prose a:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .prose a:visited {
@@ -161,6 +172,11 @@
 .card:focus-within {
   border-color: rgba(29, 78, 216, 0.44);
   box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+}
+
+.card:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
 }
 
 .card h3 {
@@ -341,6 +357,12 @@ body:has(.gs-hub-page) .sidebar .sidebar-item:hover {
   opacity: 1;
 }
 
+body:has(.gs-hub-page) .sidebar .sidebar-item:focus {
+  background: rgba(29, 78, 216, 0.08);
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
 body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   opacity: 1;
   background: rgba(29, 78, 216, 0.12);
@@ -410,6 +432,21 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   .breadcrumbs {
     font-size: 0.85rem;
   }
+
+  /* Improved mobile navigation */
+  #navbar .nav-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Better touch targets */
+  .card:hover {
+    transform: none; /* Disable hover effects on touch devices */
+  }
+
+  .prose a {
+    padding: 0.2rem 0; /* Better touch targets for links */
+  }
 }
 
 @media (max-width: 480px) {
@@ -452,5 +489,23 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
 
   .card-group {
     gap: 1rem;
+  }
+
+  /* Additional mobile enhancements */
+  .gs-chip-row {
+    gap: 0.4rem;
+  }
+
+  .gs-chip-row span {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .gs-signal-card {
+    padding: 1rem;
+  }
+
+  .gs-signal-card h3 {
+    font-size: 1rem;
   }
 }
