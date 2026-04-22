@@ -11,7 +11,15 @@ ENGINEERING_REVIEW_*
 TASK_COMPLETED_*
 LEAD_ENGINEERING_*
 UX_STRATEGY_*
-EOF
+GROA-*_*
+capacity-assessment.md
+docs/pr-workflow.md
+final-hiring-recommendations.md
+handoff-to-ceo.md
+hiring-recommendations.md
+task-delegation-guide.md
+internal-materials-policy.md
+writing-guidelines.md
 # Backup files
 *.backup
 # Temporary files
