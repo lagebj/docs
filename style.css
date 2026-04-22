@@ -873,7 +873,6 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   .prose table td {
     white-space: nowrap;
   }
-}
 
 /* Responsive table styles for all screen sizes */
 .prose table {
