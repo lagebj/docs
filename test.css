@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Test styles */
+.test-class {
+  color: red;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .test-class {
+    font-size: 0.875rem;
+  }
+}

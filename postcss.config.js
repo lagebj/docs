@@ -1,7 +1,7 @@
 module.exports = {
   plugins: [
     // Tailwind CSS plugin for utility-first CSS framework
-    require('tailwindcss'),
+    require('@tailwindcss/postcss'),
     
     // Autoprefixer for adding vendor prefixes to CSS rules
     require('autoprefixer'),
