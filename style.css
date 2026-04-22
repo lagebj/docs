@@ -6,7 +6,7 @@
   --gs-surface-soft: linear-gradient(180deg, rgba(219, 234, 254, 0.5) 0%, rgba(248, 250, 252, 0.96) 100%);
   --gs-surface-band: linear-gradient(180deg, rgba(191, 219, 254, 0.42) 0%, rgba(241, 245, 249, 0.92) 100%);
   --gs-space-vertical: clamp(2.5rem, 2rem + 1vw, 3.5rem);
-  /* New additions for enhanced design system */
+  /* Additional design system colors */
   --gs-success: #059669;
   --gs-warning: #d97706;
   --gs-danger: #dc2626;
