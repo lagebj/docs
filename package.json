@@ -6,6 +6,7 @@
     "links": "mintlify broken-links",
     "lint:md": "markdownlint \"**/*.{md,mdx}\" --ignore node_modules",
     "format:check": "pre-commit run --all-files",
+    "setup:agent": "bash scripts/agents/setup-opencode-adapter.sh",
     "verify": "npm run links && npm run lint:md && npm run format:check"
   },
   "devDependencies": {
