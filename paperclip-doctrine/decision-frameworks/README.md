@@ -1,11 +1,15 @@
-# Decision Frameworks
+# Paperclip Decision Frameworks
 
-Frameworks for making consistent, principled decisions across Paperclip teams.
+Decision frameworks provide structured approaches to making complex choices consistently. They help ensure we consider relevant factors and make decisions aligned with our principles.
 
-This directory contains structured approaches to decision-making that align with Grounded Systems principles, including:
+These frameworks are not rigid formulas but thinking tools that guide evaluation while allowing for contextual adaptation.
 
-- Architecture decision records (ADRs)
-- Prioritization matrices
-- Risk assessment models
-- Change evaluation processes
-- Resource allocation frameworks
+## Current Frameworks
+
+1. [Technology Evaluation](technology-evaluation.md)
+2. [Engagement Scoping](engagement-scoping.md)
+3. [Change Management](change-management.md)
+4. [Risk Assessment](risk-assessment.md)
+5. [Solution Architecture](solution-architecture.md)
+
+Each framework includes decision criteria, evaluation techniques, and guidance for application in various contexts.

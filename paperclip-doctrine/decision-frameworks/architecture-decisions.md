@@ -6,6 +6,7 @@ Framework for making consistent, principled architecture decisions.
 
 ### Step 1: Read The Real System First
 
+
 Before proposing solutions, understand:
 - Current system constraints and capabilities
 - Existing ownership boundaries and relationships
@@ -15,12 +16,14 @@ Before proposing solutions, understand:
 
 ### Step 2: Identify The Actual Problem
 
+
 Distinguish between:
 - Surface symptoms (slow performance, error rates)
 - Root causes (architectural bottlenecks, ownership gaps)
 - Organizational friction (communication, prioritization issues)
 
 ### Step 3: Evaluate Options Against Principles
+
 
 Assess each option against our core principles:
 
@@ -33,6 +36,7 @@ Assess each option against our core principles:
 
 ### Step 4: Document Trade-offs
 
+
 Record clearly:
 - What problem is actually being addressed
 - Why the chosen approach fits the context
@@ -43,12 +47,14 @@ Record clearly:
 
 ### Primary Factors
 
+
 1. **Ownership Clarity**: Who owns what parts of this solution?
 2. **Operational Simplicity**: How easy is this to operate daily?
 3. **Failure Impact**: What happens when components fail?
 4. **Learning Requirements**: What new skills are needed?
 
 ### Secondary Factors
+
 
 1. **Cost**: Implementation, operation, and maintenance costs
 2. **Timeline**: How quickly can this be implemented safely?

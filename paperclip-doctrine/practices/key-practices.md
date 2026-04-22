@@ -6,6 +6,7 @@ These practices translate our principles into daily behaviors and workflows.
 
 ### Start With The Real System
 
+
 - Begin by understanding where friction actually lives
 - Identify who really owns decisions
 - Map which seams keep causing drag
@@ -13,6 +14,7 @@ These practices translate our principles into daily behaviors and workflows.
 - Compare what people say versus what the system behavior reveals
 
 ### Follow Structure, Not Theater
+
 
 - Look for repeated delays as indicators of real problems
 - Identify hidden ownership seams
@@ -25,6 +27,7 @@ These practices translate our principles into daily behaviors and workflows.
 
 ### Solve For Durable Movement
 
+
 Every implementation should:
 - Improve the current system from within
 - Teach something useful to customer teams
@@ -33,6 +36,7 @@ Every implementation should:
 - Increase confidence and clarity
 
 ### Prefer Practical Truth Over Polished Fiction
+
 
 Ensure recommendations would still make sense:
 - Under current constraints
@@ -44,6 +48,7 @@ Ensure recommendations would still make sense:
 
 ### Plain Language First
 
+
 - Use everyday words
 - Write short, direct sentences
 - Employ concrete nouns and verbs
@@ -51,6 +56,7 @@ Ensure recommendations would still make sense:
 - Explain the practical importance of topics
 
 ### Visible Reasoning
+
 
 - Document important reasoning near the work
 - Record trade-offs considered and chosen
@@ -61,12 +67,14 @@ Ensure recommendations would still make sense:
 
 ### Teaching Through Doing
 
+
 - Involve customer teams in hands-on work
 - Explain the "why" behind technical choices
 - Share debugging and troubleshooting approaches
 - Demonstrate how to validate and verify changes
 
 ### Gradual Knowledge Transfer
+
 
 - Plan knowledge transfer throughout engagements
 - Create learning opportunities in daily work
