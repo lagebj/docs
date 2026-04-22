@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "mintlify dev",
+    "build:css": "postcss style.css -o output.css",
+    "build:test": "postcss test.css -o test-output.css",
     "links": "mintlify broken-links",
     "lint:md": "markdownlint \"**/*.{md,mdx}\" --ignore node_modules",
     "format:check": "pre-commit run --all-files",
@@ -10,10 +12,13 @@
     "verify": "npm run links && npm run lint:md && npm run format:check"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.4",
     "autoprefixer": "^10.5.0",
+    "cssnano": "^7.1.7",
     "markdownlint-cli": "^0.48.0",
     "mintlify": "^4.0.0",
     "postcss": "^8.5.10",
+    "postcss-cli": "^11.0.1",
     "tailwindcss": "^4.2.3"
   },
   "version": "0.5.0",

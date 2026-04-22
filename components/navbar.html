@@ -1,16 +1,19 @@
 <!-- Navigation bar partial -->
-<header class="gs-navbar">
+<header class="sticky top-0 z-50 backdrop-blur-md border-b border-gs-border-muted shadow-lg shadow-slate-800/8 bg-white/96 py-3" role="banner">
   <div class="container mx-auto px-4 flex items-center justify-between">
-    <a href="/" class="flex items-center">
+    <a href="/" class="flex items-center" aria-label="Grounded Systems Home">
       <img src="/images/logo-navbar.svg" alt="Grounded Systems Logo" />
     </a>
     
     <!-- Search Component -->
-    <div class="hidden md:block" id="desktop-search">
+    <div class="hidden md:block" id="desktop-search" role="search">
       <!-- Search component will be injected here -->
     </div>
     
-    <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+    <button class="mobile-menu-toggle" 
+            aria-label="Toggle mobile menu" 
+            aria-expanded="false"
+            aria-controls="mobile-navigation">
       <div class="hamburger">
         <span></span>
         <span></span>
@@ -18,7 +21,11 @@
       </div>
     </button>
     
-    <nav class="gs-nav-tabs" role="navigation" aria-label="Main">
+    <nav class="gs-nav-tabs md:hidden" 
+         id="mobile-navigation"
+         role="navigation" 
+         aria-label="Main navigation"
+         aria-hidden="true">
       <!-- Navigation tabs will be populated by Mintlify -->
     </nav>
   </div>

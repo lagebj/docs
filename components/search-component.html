@@ -1,12 +1,29 @@
 <!-- Search Component -->
 <div class="search-container">
   <div class="search-input-wrapper">
-    <input type="text" id="search-input" placeholder="Search documentation..." autocomplete="off" />
-    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <input type="text" 
+           id="search-input" 
+           placeholder="Search documentation..." 
+           autocomplete="off" 
+           aria-autocomplete="list"
+           aria-controls="search-results"
+           aria-expanded="false"
+           role="combobox" />
+    <svg class="search-icon" 
+         width="20" 
+         height="20" 
+         viewBox="0 0 24 24" 
+         fill="none" 
+         xmlns="http://www.w3.org/2000/svg"
+         aria-hidden="true">
       <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <div id="search-results" class="search-results-dropdown"></div>
+  <div id="search-results" 
+       class="search-results-dropdown" 
+       role="listbox"
+       aria-label="Search results">
+  </div>
 </div>
 
 <style>
@@ -29,6 +46,7 @@
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.2s;
+  min-height: 44px; /* Minimum touch target size */
 }
 
 #search-input:focus {
@@ -67,6 +85,7 @@
 .search-result {
   padding: 12px;
   border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
 }
 
 .search-result:last-child {
@@ -92,10 +111,240 @@
   margin: 0;
 }
 
+.search-result:hover,
+.search-result:focus {
+  background-color: #f8fafc;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
 .no-results {
   padding: 16px;
   text-align: center;
   color: #6b7280;
   font-size: 14px;
 }
+
+/* Focus indicator for search results */
+.search-result:focus {
+  background-color: #f0f9ff;
+  outline: 2px solid #0ea5e9;
+  outline-offset: -2px;
+}
+
+/* Hide search results from screen readers when not visible */
+.search-results-dropdown:not(.show) {
+  display: none;
+}
 </style>
+
+<script type="module">
+// Search Component Class with Accessibility and Error Handling
+import { ComponentBase } from './base-component.js';
+
+class SearchComponent extends ComponentBase {
+  constructor() {
+    super();
+    this.input = document.getElementById('search-input');
+    this.resultsContainer = document.getElementById('search-results');
+    this.currentIndex = -1;
+    
+    if (this.input && this.resultsContainer) {
+      this.init();
+    }
+  }
+  
+  async init() {
+    try {
+      // Add event listeners
+      this.input.addEventListener('input', this.debounce(this.handleInput.bind(this), 300));
+      this.input.addEventListener('keydown', this.handleKeyDown.bind(this));
+      this.input.addEventListener('focus', this.handleFocus.bind(this));
+      
+      // Close search results when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!this.input.contains(e.target) && !this.resultsContainer.contains(e.target)) {
+          this.hideResults();
+        }
+      });
+      
+      // Initialize Fuse.js for search
+      await this.initializeSearch();
+      
+    } catch (error) {
+      console.error('Failed to initialize search component:', error);
+      this.showError('Search functionality is temporarily unavailable.');
+    }
+  }
+  
+  async initializeSearch() {
+    return this.safeExecute(async () => {
+      // This would normally load search data
+      // For now, we'll simulate with sample data
+      this.searchData = [
+        { title: 'Getting Started', content: 'Learn how to get started with Grounded Systems', url: '/getting-started' },
+        { title: 'Design Principles', content: 'Core design principles of our system', url: '/principles' },
+        { title: 'Component Library', content: 'Reusable components for documentation', url: '/components' }
+      ];
+      
+      // Simulate Fuse.js initialization
+      this.fuse = {
+        search: (query) => {
+          if (!query) return [];
+          return this.searchData.filter(item => 
+            item.title.toLowerCase().includes(query.toLowerCase()) ||
+            item.content.toLowerCase().includes(query.toLowerCase())
+          );
+        }
+      };
+    }, (error) => {
+      throw new Error('Failed to initialize search index: ' + error.message);
+    });
+  }
+  
+  debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+  
+  async handleInput(event) {
+    await this.safeExecute(async () => {
+      const query = event.target.value.trim();
+      
+      if (query.length === 0) {
+        this.hideResults();
+        return;
+      }
+      
+      // Update ARIA attributes
+      this.input.setAttribute('aria-expanded', 'true');
+      
+      // Perform search
+      const results = this.fuse.search(query);
+      
+      // Display results
+      this.displayResults(results);
+    }, (error) => {
+      console.error('Search error:', error);
+      this.showError('Search failed. Please try again.');
+    });
+  }
+  
+  handleKeyDown(event) {
+    const results = this.resultsContainer.querySelectorAll('.search-result');
+    
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.currentIndex = Math.min(this.currentIndex + 1, results.length - 1);
+        this.focusResult(this.currentIndex);
+        break;
+        
+      case 'ArrowUp':
+        event.preventDefault();
+        this.currentIndex = Math.max(this.currentIndex - 1, -1);
+        if (this.currentIndex === -1) {
+          this.input.focus();
+        } else {
+          this.focusResult(this.currentIndex);
+        }
+        break;
+        
+      case 'Enter':
+        if (this.currentIndex >= 0 && results[this.currentIndex]) {
+          event.preventDefault();
+          results[this.currentIndex].click();
+        }
+        break;
+        
+      case 'Escape':
+        event.preventDefault();
+        this.hideResults();
+        this.input.blur();
+        break;
+    }
+  }
+  
+  handleFocus() {
+    // Reset current index when input gains focus
+    this.currentIndex = -1;
+  }
+  
+  displayResults(results) {
+    if (results.length === 0) {
+      this.resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
+      this.resultsContainer.classList.add('show');
+      return;
+    }
+    
+    const resultsHTML = results.map((result, index) => `
+      <div class="search-result" 
+           role="option" 
+           tabindex="-1" 
+           id="search-result-${index}"
+           data-url="${result.url}">
+        <h3>${result.title}</h3>
+        <p>${result.content}</p>
+      </div>
+    `).join('');
+    
+    this.resultsContainer.innerHTML = resultsHTML;
+    this.resultsContainer.classList.add('show');
+    
+    // Add click handlers to results
+    this.resultsContainer.querySelectorAll('.search-result').forEach((result, index) => {
+      result.addEventListener('click', () => {
+        const url = result.getAttribute('data-url');
+        if (url) {
+          window.location.href = url;
+        }
+      });
+      
+      result.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          result.click();
+        }
+      });
+    });
+  }
+  
+  hideResults() {
+    this.resultsContainer.classList.remove('show');
+    this.input.setAttribute('aria-expanded', 'false');
+    this.currentIndex = -1;
+  }
+  
+  focusResult(index) {
+    const results = this.resultsContainer.querySelectorAll('.search-result');
+    if (index >= 0 && index < results.length) {
+      results[index].focus();
+    }
+  }
+  
+  showError(message) {
+    this.resultsContainer.innerHTML = `<div class="no-results">${message}</div>`;
+    this.resultsContainer.classList.add('show');
+    
+    // Hide error after 5 seconds
+    setTimeout(() => {
+      this.hideResults();
+    }, 5000);
+  }
+}
+
+// Initialize the search component when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    new SearchComponent();
+  } catch (error) {
+    console.error('Failed to initialize search component:', error);
+  }
+});
+</script>
