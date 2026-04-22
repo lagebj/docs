@@ -14,3 +14,12 @@ repos:
     hooks:
       - id: markdownlint_docker
         args: [-r ~MD013]
+  # Custom hook to prevent committing internal materials
+  - repo: local
+    hooks:
+      - id: check-internal-materials
+        name: Check for internal materials
+        entry: scripts/check-internal-materials.sh
+        language: script
+        types: [text]
+        pass_filenames: false
