@@ -2,7 +2,39 @@
 
 Thank you for your interest in contributing to our documentation! 
 
-For information on how to contribute, please see [contributing.md](contributing.md).
-For writing guidelines, please see [writing-guidelines.md](writing-guidelines.md).
+### Option 1: Edit directly on GitHub
 
-Please also review our [internal materials policy](internal-materials-policy.md) to ensure you don't accidentally commit confidential information.
+1. Navigate to the page you want to edit
+2. Click the "Edit this file" button (the pencil icon)
+3. Make your changes and submit a pull request
+
+### Option 2: Local development
+
+1. Follow the PR workflow described in [docs/pr-workflow.md](docs/pr-workflow.md)
+2. Fork and clone this repository
+3. Install the Mintlify CLI: `npm i -g mint`
+4. Create a branch for your changes following Conventional Commits
+5. Make changes
+6. Navigate to the docs directory and run `mint dev`
+7. Preview your changes at `http://localhost:3000`
+8. Commit your changes using Conventional Commits format
+9. Submit a pull request following the PR workflow
+
+For contribution scope and review expectations, see the [contribution model](reference/contribution-model.mdx).
+
+## Conventional Commits
+
+All commits and PR titles must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+- Format: `type(scope): description`
+- Valid types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`, `build`, `ci`
+- Example: `feat(auth): add login functionality`
+- All changes require human peer review through PRs
+
+## Writing guidelines
+
+- **Use active voice**: "Run the command" not "The command should be run"
+- **Address the reader directly**: Use "you" instead of "the user"
+- **Keep sentences concise**: Aim for one idea per sentence
+- **Lead with the goal**: Start instructions with what the user wants to accomplish
+- **Use consistent terminology**: Don't alternate between synonyms for the same concept
+- **Include examples**: Show, don't just tell
