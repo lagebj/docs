@@ -4,3 +4,16 @@ node_modules
 .DS_Store
 .env
 .env.local
+# Internal documentation files
+COMPLETED_TASK_*
+FINAL_SUMMARY_*
+ENGINEERING_REVIEW_*
+TASK_COMPLETED_*
+LEAD_ENGINEERING_*
+UX_STRATEGY_*
+EOF
+# Backup files
+*.backup
+# Temporary files
+tmp/
+temp/
