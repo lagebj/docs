@@ -3,10 +3,14 @@
   "private": true,
   "scripts": {
     "dev": "mintlify dev",
+    "build:css": "npx tailwindcss -i ./src/styles/components.css -o ./output.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/styles/components.css -o ./output.css --watch",
     "links": "mintlify broken-links",
     "lint:md": "markdownlint \"**/*.{md,mdx}\" --ignore node_modules",
     "format:check": "pre-commit run --all-files",
-    "verify": "npm run links && npm run lint:md && npm run format:check"
+    "verify": "npm run links && npm run lint:md && npm run format:check",
+    "test:components": "open src/test/components-test.html",
+    "size:css": "npx gzip-size output.css --include-original"
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",
