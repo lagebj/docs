@@ -3,39 +3,14 @@
 <div class="feedback-component" style="margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--gs-border-muted); border-radius: 12px; background: var(--gs-surface-soft);">
   <p style="margin: 0 0 1rem 0; font-weight: 600;">Was this page helpful?</p>
   <div style="display: flex; gap: 0.5rem;">
-    <button class="feedback-btn" data-feedback="positive" style="padding: 0.5rem 1rem; background: #1e40af; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    <button class="feedback-btn gs-button-primary" data-feedback="positive">
       👍 Yes
     </button>
-    <button class="feedback-btn" data-feedback="negative" style="padding: 0.5rem 1rem; background: #f8fafc; color: #334155; border: 1px solid var(--gs-border-muted); border-radius: 6px; cursor: pointer;">
+    <button class="feedback-btn gs-button-secondary" data-feedback="negative">
       👎 No
     </button>
   </div>
   <div class="feedback-response" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px; background: rgba(219, 234, 254, 0.5);"></div>
 </div>
 
-<script>
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('feedback-btn')) {
-    const feedbackType = e.target.dataset.feedback;
-    const responseDiv = e.target.closest('.feedback-component').querySelector('.feedback-response');
-    
-    if (feedbackType === 'positive') {
-      responseDiv.innerHTML = '<p>Thank you for your feedback! 🙏</p>';
-      responseDiv.style.background = 'rgba(219, 234, 254, 0.5)';
-    } else {
-      responseDiv.innerHTML = '<p>Thank you for your feedback. We\'ll use it to improve our documentation.</p><p><a href="https://github.com/lagebj/docs/issues/new" style="color: #1e40af; text-decoration: underline;">Report an issue</a></p>';
-      responseDiv.style.background = 'rgba(254, 226, 226, 0.5)';
-    }
-    
-    responseDiv.style.display = 'block';
-    
-    // Track feedback event
-    if (window.analytics) {
-      window.analytics.trackCustomEvent('feedback_response', {
-        type: feedbackType,
-        path: window.location.pathname
-      });
-    }
-  }
-});
-</script>
+<script src="/scripts/feedback.js"></script>

@@ -16,14 +16,29 @@ class SearchComponent {
       
       // Initialize Fuse.js with the search data
       const options = {
-        keys: ['title', 'content'],
+        keys: ['title', 'content', 'section'],
         threshold: 0.3,
         includeScore: true,
         includeMatches: true,
+        minMatchCharLength: 2,
+        shouldSort: true,
+        findAllMatches: false,
+        location: 0,
+        distance: 100,
+        tokenize: true,
+        matchAllTokens: false,
       };
       
       this.fuse = new Fuse(searchData, options);
       this.setupEventListeners();
+      
+      // Track search initialization in analytics
+      if (window.analytics) {
+        window.analytics.trackCustomEvent('search_initialized', {
+          timestamp: new Date().toISOString(),
+          indexSize: searchData.length
+        });
+      }
     } catch (error) {
       console.error('Failed to initialize search:', error);
     }
@@ -32,13 +47,56 @@ class SearchComponent {
   setupEventListeners() {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
+      let searchTimeout;
+      
       searchInput.addEventListener('input', (e) => {
-        this.performSearch(e.target.value);
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          this.performSearch(e.target.value);
+        }, 300); // Debounce search by 300ms
       });
+      
+      // Show/hide results dropdown
+      searchInput.addEventListener('focus', () => {
+        const resultsContainer = document.getElementById('search-results');
+        if (resultsContainer) {
+          resultsContainer.classList.add('show');
+        }
+      });
+      
+      // Hide results when clicking outside
+      document.addEventListener('click', (e) => {
+        const searchContainer = searchInput.closest('.search-container');
+        const resultsContainer = document.getElementById('search-results');
+        
+        if (searchContainer && resultsContainer && !searchContainer.contains(e.target)) {
+          resultsContainer.classList.remove('show');
+        }
+      });
+      
+      // Handle search result clicks for analytics
+      const resultsContainer = document.getElementById('search-results');
+      if (resultsContainer) {
+        resultsContainer.addEventListener('click', (e) => {
+          const resultLink = e.target.closest('a');
+          if (resultLink && window.analytics) {
+            window.analytics.trackCustomEvent('search_result_clicked', {
+              url: resultLink.href,
+              text: resultLink.textContent.trim()
+            });
+          }
+          
+          // Hide results after clicking
+          resultsContainer.classList.remove('show');
+        });
+      }
     }
   }
 
   performSearch(query) {
+    const resultsContainer = document.getElementById('search-results');
+    if (!resultsContainer) return;
+    
     if (!this.fuse || query.length < 2) {
       this.displayResults([]);
       return;
@@ -46,6 +104,18 @@ class SearchComponent {
 
     const results = this.fuse.search(query);
     this.displayResults(results.map(result => result.item));
+    
+    // Show results container
+    resultsContainer.classList.add('show');
+    
+    // Track search queries in analytics
+    if (window.analytics && results.length > 0) {
+      window.analytics.trackCustomEvent('search_performed', {
+        query: query,
+        resultCount: results.length,
+        timestamp: new Date().toISOString()
+      });
+    }
   }
 
   displayResults(results) {
@@ -57,20 +127,51 @@ class SearchComponent {
       return;
     }
 
-    const html = results.map(item => `
+    // Limit results to 10 items for better performance
+    const limitedResults = results.slice(0, 10);
+    
+    const html = limitedResults.map(item => `
       <div class="search-result">
         <a href="${item.url}">
           <h3>${item.title}</h3>
-          <p>${item.content.substring(0, 150)}...</p>
+          <p>${this.highlightMatches(item.content, item.matches)}</p>
         </a>
       </div>
     `).join('');
 
     resultsContainer.innerHTML = html;
   }
+  
+  highlightMatches(content, matches) {
+    if (!matches || matches.length === 0) {
+      return content.substring(0, 150) + '...';
+    }
+    
+    // Simple highlighting implementation
+    let highlightedContent = content;
+    
+    // Sort matches by position to maintain order
+    const sortedMatches = matches
+      .filter(match => match.key === 'content')
+      .flatMap(match => match.indices)
+      .sort((a, b) => a[0] - b[0]);
+    
+    if (sortedMatches.length > 0) {
+      // Just return beginning of content with ellipsis for now
+      return content.substring(0, 150) + '...';
+    }
+    
+    return content.substring(0, 150) + '...';
+  }
 }
+
+// Make SearchComponent globally available
+window.SearchComponent = SearchComponent;
 
 // Initialize search when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new SearchComponent();
+  // Only initialize if not already initialized
+  if (!window.searchComponentInstance) {
+    window.searchComponentInstance = new SearchComponent();
+  }
 });
