@@ -800,6 +800,8 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   }
 }
 
+@media (max-width: 480px) {
+  
   #navbar .nav-tabs a {
     padding: 0.2rem 0.4rem;
     font-size: 0.85rem;
@@ -873,6 +875,7 @@ body:has(.gs-hub-page) .sidebar .sidebar-item[aria-current="page"] {
   .prose table td {
     white-space: nowrap;
   }
+}
 
 /* Responsive table styles for all screen sizes */
 .prose table {
