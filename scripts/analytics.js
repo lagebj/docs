@@ -1,21 +1,43 @@
 // Simple analytics implementation for tracking UX metrics
+import { LazyLoader } from '../components/lazy-loader.js';
+import '../scripts/web-vitals.js'; // Import web vitals tracking
+
 class AnalyticsTracker {
   constructor() {
     this.init();
   }
 
   init() {
-    // Track page views
+    // Track page views immediately (critical)
     this.trackPageView();
     
-    // Track outbound link clicks
-    this.trackOutboundLinks();
+    // Set up lazy loading for non-critical tracking
+    const lazyLoader = new LazyLoader({
+      rootMargin: '100px'
+    });
     
-    // Track search usage
-    this.trackSearch();
+    // Create a dummy element to track when user scrolls
+    const scrollTracker = document.createElement('div');
+    scrollTracker.style.position = 'absolute';
+    scrollTracker.style.top = '50vh';
+    scrollTracker.style.left = '0';
+    scrollTracker.style.width = '1px';
+    scrollTracker.style.height = '1px';
+    document.body.appendChild(scrollTracker);
     
-    // Track feedback responses
-    this.trackFeedback();
+    lazyLoader.observe(scrollTracker, () => {
+      // Track outbound link clicks
+      this.trackOutboundLinks();
+      
+      // Track search usage
+      this.trackSearch();
+      
+      // Track feedback responses
+      this.trackFeedback();
+      
+      // Remove the tracker element
+      document.body.removeChild(scrollTracker);
+    });
   }
 
   trackPageView() {

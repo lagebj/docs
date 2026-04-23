@@ -1,0 +1,75 @@
+/* Cases section specific styles */
+
+/* Case study card styling */
+.case-card {
+  border: 1px solid var(--gs-border-muted);
+  border-radius: 16px;
+  background: var(--gs-surface-soft);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.case-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--gs-chrome-shadow);
+  border-color: rgba(29, 78, 216, 0.4);
+}
+
+.case-card:focus-within {
+  border-color: rgba(29, 78, 216, 0.44);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+}
+
+.case-card:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
+.case-card h3 {
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+  color: var(--gs-brand-blue);
+}
+
+.case-card p {
+  color: var(--gs-brand-slate);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
+}
+
+/* Case study metrics styling */
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.case-metric-card {
+  border: 1px solid var(--gs-border-muted);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  text-align: center;
+}
+
+.case-metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gs-brand-blue);
+  margin: 0.5rem 0;
+}
+
+.case-metric-label {
+  font-size: 0.9rem;
+  color: var(--gs-brand-slate);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

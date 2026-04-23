@@ -1,0 +1,116 @@
+/* Enhanced Navigation Styles */
+
+/* Progressive Disclosure Styles */
+.disclosure-button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+  text-align: left;
+  color: var(--gs-brand-slate);
+  transition: color 150ms ease;
+}
+
+.disclosure-button:hover {
+  color: var(--gs-brand-blue);
+}
+
+.disclosure-button:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.disclosure-button .icon {
+  transition: transform 200ms ease;
+  margin-left: 0.5rem;
+}
+
+.disclosure-button[aria-expanded="true"] .icon {
+  transform: rotate(180deg);
+}
+
+.disclosure-panel.hidden {
+  display: none;
+}
+
+.disclosure-panel {
+  padding-left: 1rem;
+  border-left: 2px solid var(--gs-border-muted);
+  margin-left: 0.5rem;
+}
+
+/* Enhanced Touch Interactions */
+.touch-active {
+  background-color: rgba(29, 78, 216, 0.1);
+  transform: scale(0.98);
+  transition: all 100ms ease;
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.96);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gs-border-muted);
+    box-shadow: 0 7px 24px rgba(30, 41, 59, 0.08);
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .mobile-nav.active {
+    display: flex;
+  }
+  
+  .mobile-nav a,
+  .mobile-nav .disclosure-button {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+  }
+  
+  .mobile-nav .disclosure-panel {
+    padding-left: 0;
+    border-left: none;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .mobile-nav .disclosure-panel a {
+    padding-left: 2rem;
+  }
+}
+
+/* Navigation Animation Enhancements */
+.gs-nav-tabs a,
+.gs-nav-tabs .disclosure-button {
+  transition: all 150ms ease;
+}
+
+.gs-nav-tabs a:hover,
+.gs-nav-tabs .disclosure-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Focus visible enhancements for keyboard users */
+.gs-nav-tabs a:focus-visible,
+.disclosure-button:focus-visible {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
