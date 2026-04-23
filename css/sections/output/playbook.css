@@ -1,0 +1,40 @@
+/* Playbook section specific styles */
+
+/* Playbook chip row */
+.playbook-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.playbook-chip-row span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(29, 78, 216, 0.25);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  background: rgba(219, 234, 254, 0.5);
+}
+
+/* Playbook responsive tables */
+.playbook-responsive-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.playbook-responsive-table th,
+.playbook-responsive-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--gs-border-muted);
+}
+
+.playbook-responsive-table th {
+  background: rgba(219, 234, 254, 0.5);
+  font-weight: 600;
+}

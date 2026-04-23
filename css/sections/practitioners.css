@@ -1,0 +1,75 @@
+/* Practitioner section specific styles */
+
+/* Practitioner card group */
+.practitioner-card-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Practitioner card styling */
+.practitioner-card {
+  border: 1px solid var(--gs-border-muted);
+  border-radius: 16px;
+  background: var(--gs-surface-soft);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.practitioner-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--gs-chrome-shadow);
+  border-color: rgba(29, 78, 216, 0.4);
+}
+
+.practitioner-card:focus-within {
+  border-color: rgba(29, 78, 216, 0.44);
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.16);
+}
+
+.practitioner-card:focus {
+  outline: 2px solid var(--gs-brand-blue);
+  outline-offset: 2px;
+}
+
+/* Premium card enhancements */
+.practitioner-card.premium {
+  position: relative;
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.5) 0%, rgba(238, 242, 255, 0.7) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 25px rgba(30, 64, 175, 0.1);
+}
+
+.practitioner-card.premium::before {
+  content: "PREMIUM";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #1e40af;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.practitioner-card h3 {
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+  color: var(--gs-brand-blue);
+}
+
+.practitioner-card p {
+  color: var(--gs-brand-slate);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  margin-bottom: 0.8rem;
+}

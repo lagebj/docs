@@ -1,4 +1,4 @@
-<!-- Navigation bar partial -->
+<!-- Enhanced Navigation bar partial -->
 <header class="sticky top-0 z-50 backdrop-blur-md border-b border-gs-border-muted shadow-lg shadow-slate-800/8 bg-white/96 py-3" role="banner">
   <div class="container mx-auto px-4 flex items-center justify-between">
     <a href="/" class="flex items-center" aria-label="Grounded Systems Home">
@@ -27,9 +27,30 @@
          aria-label="Main navigation"
          aria-hidden="true">
       <!-- Navigation tabs will be populated by Mintlify -->
+      <!-- Progressive disclosure example structure -->
+      <!-- 
+      <button class="disclosure-button" 
+              aria-expanded="false" 
+              aria-controls="disclosure-panel-1"
+              data-expanded-text="Collapse Documentation"
+              data-collapsed-text="Expand Documentation">
+        Documentation
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div id="disclosure-panel-1" class="disclosure-panel hidden">
+        <a href="/getting-started">Getting Started</a>
+        <a href="/components">Components</a>
+        <a href="/principles">Principles</a>
+      </div>
+      -->
     </nav>
   </div>
 </header>
+
+<!-- Enhanced Navigation Styles -->
+<link rel="stylesheet" href="/components/navigation-enhanced.css">
 
 <script src="/components/navigation.js"></script>
 <script src="/scripts/search.js"></script>

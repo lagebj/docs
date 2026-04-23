@@ -1,0 +1,44 @@
+/* Customer section specific styles */
+
+/* Customer overview band styling */
+.customer-overview-band {
+  margin: 2rem 0 2.5rem !important;
+  padding: clamp(1.2rem, 1rem + 0.8vw, 1.8rem) !important;
+  border: 1px solid var(--gs-border-muted) !important;
+  border-radius: 20px !important;
+  background: var(--gs-surface-band) !important;
+  box-shadow: 0 8px 24px rgba(30, 41, 59, 0.06) !important;
+}
+
+/* Customer signal grid layout */
+.customer-signal-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.9rem !important;
+  margin-top: 0.9rem !important;
+}
+
+.customer-signal-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+/* Customer signal card styling */
+.customer-signal-card {
+  border: 1px solid var(--gs-border-muted) !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, rgba(241, 245, 249, 0.72) 0%, rgba(255, 255, 255, 0.98) 100%) !important;
+  padding: 1.2rem 1.3rem !important;
+  transition: transform 160ms ease, box-shadow 160ms ease !important;
+}
+
+.customer-signal-card:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 16px rgba(30, 41, 59, 0.08) !important;
+}
+
+.customer-signal-card .icon {
+  color: var(--gs-brand-blue) !important;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  margin-bottom: 0.5rem !important;
+}

@@ -1,8 +1,11 @@
-// Mobile navigation component with enhanced accessibility
+// Enhanced Navigation Component with Progressive Disclosure and Improved Accessibility
 document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const navTabs = document.querySelector('.gs-navbar .gs-nav-tabs');
   const hamburger = document.querySelector('.hamburger');
+  
+  // Progressive disclosure elements
+  const disclosureButtons = document.querySelectorAll('.disclosure-button');
   
   if (mobileMenuToggle && navTabs && hamburger) {
     // Set initial aria attributes
@@ -124,11 +127,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+    
+    // Enhanced touch interactions
+    const touchableElements = navTabs.querySelectorAll('a, button');
+    touchableElements.forEach(element => {
+      // Add touch-specific styling and behavior
+      element.addEventListener('touchstart', () => {
+        element.classList.add('touch-active');
+      });
+      
+      element.addEventListener('touchend', () => {
+        setTimeout(() => {
+          element.classList.remove('touch-active');
+        }, 150);
+      });
+    });
   }
+  
+  // Progressive disclosure functionality
+  disclosureButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const disclosureId = this.getAttribute('aria-controls');
+      const disclosurePanel = document.getElementById(disclosureId);
+      
+      if (disclosurePanel) {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        // Toggle the disclosure panel
+        disclosurePanel.classList.toggle('hidden');
+        this.setAttribute('aria-expanded', !isExpanded);
+        
+        // Update button text for screen readers
+        const expandedText = this.getAttribute('data-expanded-text') || 'Collapse section';
+        const collapsedText = this.getAttribute('data-collapsed-text') || 'Expand section';
+        this.setAttribute('aria-label', isExpanded ? collapsedText : expandedText);
+      }
+    });
+    
+    // Keyboard support for disclosure buttons
+    button.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
   
   // Add skip link for keyboard users
   createSkipLink();
+  
+  // Enhanced responsive behavior
+  handleResponsiveNavigation();
+  window.addEventListener('resize', handleResponsiveNavigation);
 });
+
+// Handle responsive navigation adjustments
+function handleResponsiveNavigation() {
+  const navTabs = document.querySelector('.gs-navbar .gs-nav-tabs');
+  if (!navTabs) return;
+  
+  // Adjust navigation based on screen size
+  if (window.innerWidth <= 768) {
+    // Mobile behavior - ensure proper accordion styling
+    navTabs.classList.add('mobile-nav');
+  } else {
+    // Desktop behavior - remove mobile-specific classes
+    navTabs.classList.remove('mobile-nav');
+    navTabs.classList.remove('active');
+    
+    // Reset mobile menu toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const hamburger = document.querySelector('.hamburger');
+    if (mobileMenuToggle && hamburger) {
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('active');
+    }
+  }
+}
 
 // Create skip link for keyboard navigation
 function createSkipLink() {
