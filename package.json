@@ -7,6 +7,7 @@
     "build:css-sections": "postcss css/sections/*.css -d css/sections/output/",
     "build:all-css": "npm run build:css && npm run build:css-sections",
     "build:test": "postcss test.css -o test-output.css",
+    "perf:check": "node scripts/performance-budget-check.js",
     "links": "mintlify broken-links",
     "lint:md": "markdownlint \"**/*.{md,mdx}\" --ignore node_modules",
     "format:check": "pre-commit run --all-files",
