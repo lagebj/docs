@@ -1,24 +1,86 @@
-<!-- Search Component -->
+<!-- Enhanced Search Component with Faceted Search and Auto-complete -->
 <div class="search-container">
-  <div class="search-input-wrapper">
-    <input type="text" 
-           id="search-input" 
-           placeholder="Search documentation..." 
-           autocomplete="off" 
-           aria-autocomplete="list"
-           aria-controls="search-results"
-           aria-expanded="false"
-           role="combobox" />
-    <svg class="search-icon" 
-         width="20" 
-         height="20" 
-         viewBox="0 0 24 24" 
-         fill="none" 
-         xmlns="http://www.w3.org/2000/svg"
-         aria-hidden="true">
-      <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+  <form class="search-form" role="search">
+    <div class="search-input-wrapper">
+      <input type="text" 
+             id="search-input" 
+             placeholder="Search documentation..." 
+             autocomplete="off" 
+             aria-autocomplete="list"
+             aria-controls="search-results"
+             aria-expanded="false"
+             role="combobox" />
+      <svg class="search-icon" 
+           width="20" 
+           height="20" 
+           viewBox="0 0 24 24" 
+           fill="none" 
+           xmlns="http://www.w3.org/2000/svg"
+           aria-hidden="true">
+        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </form>
+  
+  <!-- Auto-complete Suggestions -->
+  <div id="search-suggestions" 
+       class="search-suggestions-dropdown" 
+       role="listbox"
+       aria-label="Search suggestions">
   </div>
+  
+  <!-- Search Controls -->
+  <div class="search-controls" aria-controls="search-results">
+    <div class="search-results-header">
+      <span id="results-count" class="results-count"></span>
+      <select id="search-sort" class="search-sort" aria-label="Sort results by">
+        <option value="relevance">Sort by Relevance</option>
+        <option value="title">Sort by Title</option>
+        <option value="date">Sort by Date</option>
+      </select>
+    </div>
+    
+    <!-- Facets Panel -->
+    <div class="search-facets">
+      <details class="facet-group">
+        <summary class="facet-summary">Filter by Category</summary>
+        <div class="facet-options">
+          <label class="facet-option">
+            <input type="checkbox" class="facet-category" value="Documentation">
+            Documentation
+          </label>
+          <label class="facet-option">
+            <input type="checkbox" class="facet-category" value="Components">
+            Components
+          </label>
+          <label class="facet-option">
+            <input type="checkbox" class="facet-category" value="Guides">
+            Guides
+          </label>
+        </div>
+      </details>
+      
+      <details class="facet-group">
+        <summary class="facet-summary">Filter by Section</summary>
+        <div class="facet-options">
+          <label class="facet-option">
+            <input type="checkbox" class="facet-section" value="Getting Started">
+            Getting Started
+          </label>
+          <label class="facet-option">
+            <input type="checkbox" class="facet-section" value="API Reference">
+            API Reference
+          </label>
+          <label class="facet-option">
+            <input type="checkbox" class="facet-section" value="Best Practices">
+            Best Practices
+          </label>
+        </div>
+      </details>
+    </div>
+  </div>
+  
+  <!-- Search Results -->
   <div id="search-results" 
        class="search-results-dropdown" 
        role="listbox"
@@ -30,7 +92,11 @@
 .search-container {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
+}
+
+.search-form {
+  margin: 0;
 }
 
 .search-input-wrapper {
@@ -41,12 +107,13 @@
 
 #search-input {
   width: 100%;
-  padding: 8px 12px 8px 36px;
+  padding: 10px 12px 10px 36px;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border-color 0.2s;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.2s;
   min-height: 44px; /* Minimum touch target size */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 #search-input:focus {
@@ -60,8 +127,138 @@
   left: 10px;
   color: #6b7280;
   pointer-events: none;
+  z-index: 1;
 }
 
+/* Search Suggestions Dropdown */
+.search-suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
+.search-suggestions-dropdown.show {
+  display: block;
+}
+
+.suggestion-item {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item:focus {
+  background-color: #f8fafc;
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+/* Search Controls */
+.search-controls {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.search-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.results-count {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.search-sort {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  background: white;
+}
+
+/* Facets */
+.search-facets {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.facet-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.facet-summary {
+  font-weight: 600;
+  font-size: 13px;
+  color: #475569;
+  cursor: pointer;
+  padding: 4px 0;
+  list-style: none;
+}
+
+.facet-summary::-webkit-details-marker {
+  display: none;
+}
+
+.facet-summary::marker {
+  display: none;
+}
+
+.facet-summary::after {
+  content: "▼";
+  float: right;
+  font-size: 10px;
+  transition: transform 0.2s;
+}
+
+.facet-group[open] .facet-summary::after {
+  transform: rotate(180deg);
+}
+
+.facet-options {
+  margin-top: 6px;
+  padding-left: 8px;
+}
+
+.facet-option {
+  display: block;
+  font-size: 13px;
+  margin: 4px 0;
+  color: #64748b;
+}
+
+.facet-option input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+/* Search Results Dropdown */
 .search-results-dropdown {
   position: absolute;
   top: 100%;
@@ -69,10 +266,10 @@
   right: 0;
   background: white;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   margin-top: 4px;
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
   z-index: 1000;
   display: none;
@@ -83,268 +280,124 @@
 }
 
 .search-result {
-  padding: 12px;
-  border-bottom: 1px solid #f3f4f6;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
   cursor: pointer;
+  transition: background-color 0.15s;
 }
 
 .search-result:last-child {
   border-bottom: none;
 }
 
+.search-result:hover,
+.search-result:focus-within {
+  background-color: #f8fafc;
+}
+
 .search-result a {
   text-decoration: none;
   color: inherit;
   display: block;
+  outline: none;
 }
 
 .search-result h3 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  margin: 0 0 4px 0;
-  color: #1f2937;
+  margin: 0 0 6px 0;
+  color: #1e293b;
+}
+
+.search-result-meta {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 6px 0;
+  font-size: 12px;
+}
+
+.search-result-category {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.search-result-section {
+  color: #64748b;
+  font-style: italic;
 }
 
 .search-result p {
   font-size: 13px;
-  color: #6b7280;
+  color: #64748b;
   margin: 0;
-}
-
-.search-result:hover,
-.search-result:focus {
-  background-color: #f8fafc;
-  outline: 2px solid #3b82f6;
-  outline-offset: -2px;
+  line-height: 1.4;
 }
 
 .no-results {
-  padding: 16px;
+  padding: 24px;
   text-align: center;
-  color: #6b7280;
+  color: #64748b;
   font-size: 14px;
 }
 
 /* Focus indicator for search results */
-.search-result:focus {
-  background-color: #f0f9ff;
-  outline: 2px solid #0ea5e9;
-  outline-offset: -2px;
+.search-result a:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Hide search results from screen readers when not visible */
-.search-results-dropdown:not(.show) {
-  display: none;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-container {
+    max-width: 100%;
+  }
+  
+  .search-controls {
+    padding: 10px;
+  }
+  
+  .search-facets {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .search-results-dropdown {
+    max-height: 300px;
+  }
+  
+  .search-result {
+    padding: 12px 14px;
+  }
+  
+  .search-result h3 {
+    font-size: 14px;
+  }
+  
+  .search-result p {
+    font-size: 12px;
+  }
 }
 </style>
 
 <script type="module">
-// Search Component Class with Accessibility and Error Handling
-import { ComponentBase } from './base-component.js';
-
-class SearchComponent extends ComponentBase {
-  constructor() {
-    super();
-    this.input = document.getElementById('search-input');
-    this.resultsContainer = document.getElementById('search-results');
-    this.currentIndex = -1;
-    
-    if (this.input && this.resultsContainer) {
-      this.init();
-    }
-  }
-  
-  async init() {
-    try {
-      // Add event listeners
-      this.input.addEventListener('input', this.debounce(this.handleInput.bind(this), 300));
-      this.input.addEventListener('keydown', this.handleKeyDown.bind(this));
-      this.input.addEventListener('focus', this.handleFocus.bind(this));
-      
-      // Close search results when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!this.input.contains(e.target) && !this.resultsContainer.contains(e.target)) {
-          this.hideResults();
-        }
-      });
-      
-      // Initialize Fuse.js for search
-      await this.initializeSearch();
-      
-    } catch (error) {
-      console.error('Failed to initialize search component:', error);
-      this.showError('Search functionality is temporarily unavailable.');
-    }
-  }
-  
-  async initializeSearch() {
-    return this.safeExecute(async () => {
-      // This would normally load search data
-      // For now, we'll simulate with sample data
-      this.searchData = [
-        { title: 'Getting Started', content: 'Learn how to get started with Grounded Systems', url: '/getting-started' },
-        { title: 'Design Principles', content: 'Core design principles of our system', url: '/principles' },
-        { title: 'Component Library', content: 'Reusable components for documentation', url: '/components' }
-      ];
-      
-      // Simulate Fuse.js initialization
-      this.fuse = {
-        search: (query) => {
-          if (!query) return [];
-          return this.searchData.filter(item => 
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.content.toLowerCase().includes(query.toLowerCase())
-          );
-        }
-      };
-    }, (error) => {
-      throw new Error('Failed to initialize search index: ' + error.message);
-    });
-  }
-  
-  debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-  
-  async handleInput(event) {
-    await this.safeExecute(async () => {
-      const query = event.target.value.trim();
-      
-      if (query.length === 0) {
-        this.hideResults();
-        return;
-      }
-      
-      // Update ARIA attributes
-      this.input.setAttribute('aria-expanded', 'true');
-      
-      // Perform search
-      const results = this.fuse.search(query);
-      
-      // Display results
-      this.displayResults(results);
-    }, (error) => {
-      console.error('Search error:', error);
-      this.showError('Search failed. Please try again.');
-    });
-  }
-  
-  handleKeyDown(event) {
-    const results = this.resultsContainer.querySelectorAll('.search-result');
-    
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.currentIndex = Math.min(this.currentIndex + 1, results.length - 1);
-        this.focusResult(this.currentIndex);
-        break;
-        
-      case 'ArrowUp':
-        event.preventDefault();
-        this.currentIndex = Math.max(this.currentIndex - 1, -1);
-        if (this.currentIndex === -1) {
-          this.input.focus();
-        } else {
-          this.focusResult(this.currentIndex);
-        }
-        break;
-        
-      case 'Enter':
-        if (this.currentIndex >= 0 && results[this.currentIndex]) {
-          event.preventDefault();
-          results[this.currentIndex].click();
-        }
-        break;
-        
-      case 'Escape':
-        event.preventDefault();
-        this.hideResults();
-        this.input.blur();
-        break;
-    }
-  }
-  
-  handleFocus() {
-    // Reset current index when input gains focus
-    this.currentIndex = -1;
-  }
-  
-  displayResults(results) {
-    if (results.length === 0) {
-      this.resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
-      this.resultsContainer.classList.add('show');
-      return;
-    }
-    
-    const resultsHTML = results.map((result, index) => `
-      <div class="search-result" 
-           role="option" 
-           tabindex="-1" 
-           id="search-result-${index}"
-           data-url="${result.url}">
-        <h3>${result.title}</h3>
-        <p>${result.content}</p>
-      </div>
-    `).join('');
-    
-    this.resultsContainer.innerHTML = resultsHTML;
-    this.resultsContainer.classList.add('show');
-    
-    // Add click handlers to results
-    this.resultsContainer.querySelectorAll('.search-result').forEach((result, index) => {
-      result.addEventListener('click', () => {
-        const url = result.getAttribute('data-url');
-        if (url) {
-          window.location.href = url;
-        }
-      });
-      
-      result.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          result.click();
-        }
-      });
-    });
-  }
-  
-  hideResults() {
-    this.resultsContainer.classList.remove('show');
-    this.input.setAttribute('aria-expanded', 'false');
-    this.currentIndex = -1;
-  }
-  
-  focusResult(index) {
-    const results = this.resultsContainer.querySelectorAll('.search-result');
-    if (index >= 0 && index < results.length) {
-      results[index].focus();
-    }
-  }
-  
-  showError(message) {
-    this.resultsContainer.innerHTML = `<div class="no-results">${message}</div>`;
-    this.resultsContainer.classList.add('show');
-    
-    // Hide error after 5 seconds
-    setTimeout(() => {
-      this.hideResults();
-    }, 5000);
-  }
-}
+// Enhanced Search Component with Faceted Search and Auto-complete
+// This enhanced version works in conjunction with the updated search.js
+// The main functionality is handled by search.js, but this file provides
+// the enhanced HTML structure and basic initialization
+console.log('Enhanced search component loaded');
 
 // Initialize the search component when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   try {
-    new SearchComponent();
+    // The main SearchComponent class is defined in search.js
+    // We just need to ensure the DOM elements are properly structured
+    console.log('Enhanced search component DOM ready');
   } catch (error) {
-    console.error('Failed to initialize search component:', error);
+    console.error('Failed to initialize enhanced search component:', error);
   }
 });
 </script>

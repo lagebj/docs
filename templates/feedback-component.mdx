@@ -1,16 +1,111 @@
 ## Was this helpful?
 
-<div class="feedback-component" style="margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--gs-border-muted); border-radius: 12px; background: var(--gs-surface-soft);" role="region" aria-label="Page feedback">
-  <p style="margin: 0 0 1rem 0; font-weight: 600;">Was this page helpful?</p>
-  <div style="display: flex; gap: 0.5rem;">
-    <button class="feedback-btn gs-button-primary" data-feedback="positive" aria-label="Rate this page positively">
+<!-- Enhanced Feedback Component with Multiple Interaction Options -->
+<div class="feedback-component" role="region" aria-label="Page feedback">
+  <h3>Was this page helpful?</h3>
+  <div class="feedback-buttons">
+    <button class="feedback-btn primary" data-feedback="positive" aria-label="Rate this page positively">
       👍 Yes
     </button>
-    <button class="feedback-btn gs-button-secondary" data-feedback="negative" aria-label="Rate this page negatively">
+    <button class="feedback-btn secondary" data-feedback="negative" aria-label="Rate this page negatively">
       👎 No
     </button>
+    <button class="feedback-btn secondary modal-trigger" data-modal-target="feedback-modal" aria-label="Provide detailed feedback">
+      💬 Details
+    </button>
   </div>
-  <div class="feedback-response" style="margin-top: 1rem; display: none; padding: 1rem; border-radius: 8px; background: rgba(219, 234, 254, 0.5);" role="alert" aria-live="polite"></div>
+  <div class="feedback-response" role="alert" aria-live="polite"></div>
 </div>
 
+<!-- Feedback Modal for Detailed Feedback -->
+<div id="feedback-modal" class="feedback-modal" role="dialog" aria-labelledby="feedback-modal-title" aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="feedback-modal-title">Provide Feedback</h2>
+      <button class="modal-close" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="feedback-form">
+        <div style="margin-bottom: 16px;">
+          <label for="feedback-category" style="display: block; margin-bottom: 8px; font-weight: 500;">Category</label>
+          <select id="feedback-category" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db;">
+            <option value="content">Content Issue</option>
+            <option value="technical">Technical Problem</option>
+            <option value="suggestion">Improvement Suggestion</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label for="feedback-message" style="display: block; margin-bottom: 8px; font-weight: 500;">Your Feedback</label>
+          <textarea id="feedback-message" rows="4" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db;" placeholder="Please describe your feedback..."></textarea>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <label style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="feedback-followup" />
+            <span>I'd like to be contacted about this feedback</span>
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="feedback-btn secondary modal-close">Cancel</button>
+      <button class="feedback-btn primary" id="submit-feedback" data-loading="true">Submit Feedback</button>
+    </div>
+  </div>
+</div>
+
+<!-- Example Banner Notification -->
+<div class="feedback-banner info" role="alert">
+  <svg class="banner-icon" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+  </svg>
+  <div class="banner-content">
+    <h3>New Feature Available</h3>
+    <p>We've added new search capabilities to help you find content faster.</p>
+  </div>
+  <button class="banner-close" aria-label="Close banner">&times;</button>
+</div>
+
+<!-- Enhanced Feedback Styles -->
+<link rel="stylesheet" href="/components/feedback-components.css">
+
 <script type="module" src="/scripts/feedback.js"></script>
+
+<script>
+// Handle banner close button
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('banner-close')) {
+    e.target.closest('.feedback-banner').remove();
+  }
+});
+
+// Handle form submission
+document.addEventListener('DOMContentLoaded', function() {
+  const submitButton = document.getElementById('submit-feedback');
+  const feedbackForm = document.getElementById('feedback-form');
+  
+  if (submitButton && feedbackForm) {
+    submitButton.addEventListener('click', function() {
+      const category = document.getElementById('feedback-category').value;
+      const message = document.getElementById('feedback-message').value;
+      
+      // In a real implementation, you would send this data to your backend
+      console.log('Feedback submitted:', { category, message });
+      
+      // Show success message
+      if (window.feedbackComponent) {
+        window.feedbackComponent.showToast('Thank you for your detailed feedback!', 'success');
+      }
+      
+      // Close modal
+      const modal = document.getElementById('feedback-modal');
+      if (modal && window.feedbackComponent) {
+        window.feedbackComponent.closeModal(modal);
+      }
+      
+      // Reset form
+      feedbackForm.reset();
+    });
+  }
+});
+</script>

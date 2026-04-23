@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "mintlify dev",
-    "build:css": "postcss style.css -o output.css",
+    "build:css": "postcss style.css -o output.css && postcss components/*.css -o components/output.css",
     "build:test": "postcss test.css -o test-output.css",
     "links": "mintlify broken-links",
     "lint:md": "markdownlint \"**/*.{md,mdx}\" --ignore node_modules",
