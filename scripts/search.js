@@ -1,6 +1,7 @@
 // Client-side search implementation using Fuse.js
 import Fuse from 'fuse.js';
 import { ComponentBase } from '../components/base-component.js';
+import { LazyLoader } from '../components/lazy-loader.js';
 
 class SearchComponent extends ComponentBase {
   constructor() {
@@ -11,39 +12,49 @@ class SearchComponent extends ComponentBase {
   }
 
   async init() {
-    await this.safeExecute(async () => {
-      // Load search index
-      const response = await fetch('/reference/search-index.json');
-      const searchData = await response.json();
+    // Set up lazy loading for search component
+    const searchContainer = document.querySelector('.search-container');
+    if (searchContainer) {
+      const lazyLoader = new LazyLoader({
+        rootMargin: '50px' // Start loading 50px before entering viewport
+      });
       
-      // Initialize Fuse.js with the search data
-      const options = {
-        keys: ['title', 'content', 'section'],
-        threshold: 0.3,
-        includeScore: true,
-        includeMatches: true,
-        minMatchCharLength: 2,
-        shouldSort: true,
-        findAllMatches: false,
-        location: 0,
-        distance: 100,
-        tokenize: true,
-        matchAllTokens: false,
-      };
-      
-      this.fuse = new Fuse(searchData, options);
-      this.setupEventListeners();
-      
-      // Track search initialization in analytics
-      if (window.analytics) {
-        window.analytics.trackCustomEvent('search_initialized', {
-          timestamp: new Date().toISOString(),
-          indexSize: searchData.length
+      lazyLoader.observe(searchContainer, async () => {
+        await this.safeExecute(async () => {
+          // Load search index only when search component is in viewport
+          const response = await fetch('/reference/search-index.json');
+          const searchData = await response.json();
+          
+          // Initialize Fuse.js with the search data
+          const options = {
+            keys: ['title', 'content', 'section'],
+            threshold: 0.3,
+            includeScore: true,
+            includeMatches: true,
+            minMatchCharLength: 2,
+            shouldSort: true,
+            findAllMatches: false,
+            location: 0,
+            distance: 100,
+            tokenize: true,
+            matchAllTokens: false,
+          };
+          
+          this.fuse = new Fuse(searchData, options);
+          this.setupEventListeners();
+          
+          // Track search initialization in analytics
+          if (window.analytics) {
+            window.analytics.trackCustomEvent('search_initialized', {
+              timestamp: new Date().toISOString(),
+              indexSize: searchData.length
+            });
+          }
+        }, (error) => {
+          console.error('Failed to initialize search:', error);
         });
-      }
-    }, (error) => {
-      console.error('Failed to initialize search:', error);
-    });
+      });
+    }
   }
 
   setupEventListeners() {
