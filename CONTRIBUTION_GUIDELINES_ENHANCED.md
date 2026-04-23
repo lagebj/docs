@@ -130,14 +130,14 @@ These guidelines extend the governance framework with specific workflows, templa
 - [ ] Appropriate ARIA live regions for dynamic content
 - [ ] Dismissible with keyboard (Escape key)
 - [ ] Focus management when opening/closing
-ToL] Proper announcement timing and politeness settings
+- [ ] Proper announcement timing and politeness settings
 - [ ] Animation with `prefers-reduced-motion` support
 
 #### Interactive Components (Buttons, Links, Cards)
 - [ ] Minimum 44px touch targets
-<[ ] Visible focus indicators
-At[ ] Proper hover/focus/active states
-Tz[ ] Disabled state with appropriate `aria-disabled`
+- [ ] Visible focus indicators
+- [ ] Proper hover/focus/active states
+- [ ] Disabled state with appropriate `aria-disabled`
 - [ ] Loading state with progress indication
 
 ## Code Review Standards

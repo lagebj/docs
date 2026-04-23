@@ -1,0 +1,58 @@
+{
+  "colors": {
+    "gs": {
+      "brand": {
+        "blue": "#1e40af",
+        "slate": "#334155"
+      },
+      "border": {
+        "muted": "rgba(51, 65, 85, 0.2)"
+      },
+      "surface": {
+        "soft": "linear-gradient(180deg, rgba(219, 234, 254, 0.5) 0%, rgba(248, 250, 252, 0.96) 100%)",
+        "band": "linear-gradient(180deg, rgba(191, 219, 254, 0.42) 0%, rgba(241, 245, 249, 0.92) 100%)"
+      },
+      "success": "#059669",
+      "warning": "#d97706",
+      "danger": "#dc2626",
+      "button": {
+        "primary": {
+          "bg": "#1e40af",
+          "hover": "#1e3a8a",
+          "text": "#ffffff"
+        },
+        "secondary": {
+          "bg": "#f8fafc",
+          "hover": "#e2e8f0",
+          "text": "#334155",
+          "border": "rgba(51, 65, 85, 0.2)"
+        }
+      }
+    }
+  },
+  "spacing": {
+    "vertical": "clamp(2.5rem, 2rem + 1vw, 3.5rem)",
+    "xs": "0.25rem",
+    "sm": "0.5rem",
+    "md": "1rem",
+    "lg": "1.5rem",
+    "xl": "2rem"
+  },
+  "borderRadius": {
+    "gs-card": "16px",
+    "gs-button": "8px",
+    "gs-pill": "9999px"
+  },
+  "boxShadow": {
+    "gs-chrome": "0 14px 34px rgba(30, 64, 175, 0.12)",
+    "gs-card": "0 14px 34px rgba(30, 64, 175, 0.12)"
+  },
+  "transitionTimingFunction": {
+    "gs-ease": "cubic-bezier(0.4, 0, 0.2, 1)"
+  },
+  "transitionDuration": {
+    "gs-fast": "150ms",
+    "gs-medium": "200ms",
+    "gs-slow": "300ms"
+  }
+}
