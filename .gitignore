@@ -4,7 +4,8 @@ node_modules
 .DS_Store
 .env
 .env.local
-# Internal documentation files
+
+# Internal documentation files - NEVER commit these
 COMPLETED_TASK_*
 FINAL_SUMMARY_*
 ENGINEERING_REVIEW_*
@@ -12,6 +13,7 @@ TASK_COMPLETED_*
 LEAD_ENGINEERING_*
 UX_STRATEGY_*
 GROA-[0-9]*_
+GROA-[0-9]*.md
 capacity-assessment.md
 docs/pr-workflow.md
 final-hiring-recommendations.md
@@ -23,8 +25,28 @@ writing-guidelines.md
 reference/agent-skills.mdx
 reference/premium-components.mdx
 design/
+
+# Internal planning and process documents
+ESCALATION_*.md
+IMPLEMENTATION_*.md
+MASTER_*.md
+WEBSITE_*.md
+WORKSPACE_*.md
+LEADENG_*.md
+commit_marker.txt
+*.marker
+
+# Internal tooling and scripts
+scripts/agents/
+scripts/check-internal-materials.sh
+.pre-commit-config.yaml
+
+# Agent configuration (internal)
+agents/
+
 # Backup files
 *.backup
+
 # Temporary files
 tmp/
 temp/
