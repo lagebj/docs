@@ -14,11 +14,11 @@ class FeedbackComponent extends ComponentBase {
     this.toastContainer = null;
     this.init();
   }
-  
+
   init() {
     // Create toast container
     this.createToastContainer();
-    
+
     // Handle click events for all feedback components
     document.addEventListener('click', (e) => {
       // Handle feedback buttons
@@ -29,7 +29,7 @@ class FeedbackComponent extends ComponentBase {
           console.error('Error handling feedback click:', error);
         });
       }
-      
+
       // Handle modal triggers
       if (e.target.classList.contains('modal-trigger')) {
         this.safeExecute(() => {
@@ -38,7 +38,7 @@ class FeedbackComponent extends ComponentBase {
           console.error('Error opening modal:', error);
         });
       }
-      
+
       // Handle modal close
       if (e.target.classList.contains('modal-close') || e.target.classList.contains('modal-overlay')) {
         this.safeExecute(() => {
@@ -60,7 +60,7 @@ class FeedbackComponent extends ComponentBase {
           console.error('Error handling feedback keyboard event:', error);
         });
       }
-      
+
       // Handle Escape key to close feedback response or modals
       if (e.key === 'Escape') {
         this.safeExecute(() => {
@@ -74,7 +74,7 @@ class FeedbackComponent extends ComponentBase {
               feedbackBtn.focus();
             }
           }
-          
+
           // Close modals
           const openModal = document.querySelector('.feedback-modal.active');
           if (openModal) {
@@ -86,7 +86,7 @@ class FeedbackComponent extends ComponentBase {
       }
     });
   }
-  
+
   /**
    * Create container for toast notifications
    */
@@ -97,7 +97,7 @@ class FeedbackComponent extends ComponentBase {
     this.toastContainer.setAttribute('role', 'alert');
     this.toastContainer.setAttribute('aria-live', 'polite');
     document.body.appendChild(this.toastContainer);
-    
+
     // Add styles for toast container
     const style = document.createElement('style');
     style.textContent = `
@@ -111,7 +111,7 @@ class FeedbackComponent extends ComponentBase {
         gap: 10px;
         pointer-events: none;
       }
-      
+
       .toast {
         padding: 12px 16px;
         border-radius: 8px;
@@ -124,25 +124,25 @@ class FeedbackComponent extends ComponentBase {
         gap: 8px;
         max-width: 350px;
       }
-      
+
       .toast.success {
         background: #dcfce7;
         border: 1px solid #bbf7d0;
         color: #15803d;
       }
-      
+
       .toast.error {
         background: #fee2e2;
         border: 1px solid #fecaca;
         color: #b91c1c;
       }
-      
+
       .toast.info {
         background: #dbeafe;
         border: 1px solid #bfdbfe;
         color: #1d4ed8;
       }
-      
+
       .toast-close {
         background: none;
         border: none;
@@ -152,11 +152,11 @@ class FeedbackComponent extends ComponentBase {
         margin: 0 0 0 auto;
         opacity: 0.7;
       }
-      
+
       .toast-close:hover {
         opacity: 1;
       }
-      
+
       @keyframes slideInUp {
         from {
           transform: translateY(20px);
@@ -167,7 +167,7 @@ class FeedbackComponent extends ComponentBase {
           opacity: 1;
         }
       }
-      
+
       @keyframes fadeOut {
         from {
           opacity: 1;
@@ -177,14 +177,14 @@ class FeedbackComponent extends ComponentBase {
           transform: translateY(-20px);
         }
       }
-      
+
       .fade-out {
         animation: fadeOut 0.3s ease forwards;
       }
     `;
     document.head.appendChild(style);
   }
-  
+
   /**
    * Handle feedback button click/keyboard activation
    * @param {HTMLElement} button - The feedback button element
@@ -193,7 +193,7 @@ class FeedbackComponent extends ComponentBase {
     const feedbackType = button.dataset.feedback;
     const responseDiv = button.closest('.feedback-component').querySelector('.feedback-response');
     const showResponse = button.dataset.showResponse !== 'false';
-    
+
     // Show loading state if requested
     if (button.dataset.loading === 'true') {
       this.showLoadingState(button);
@@ -204,12 +204,12 @@ class FeedbackComponent extends ComponentBase {
         responseDiv.innerHTML = '<p>Thank you for your feedback! 🙏</p>';
         responseDiv.style.background = 'rgba(219, 234, 254, 0.5)';
         responseDiv.style.display = 'block';
-        
+
         // Focus the response div for screen readers
         responseDiv.setAttribute('tabindex', '-1');
         responseDiv.focus();
       }
-      
+
       // Show success toast
       this.showToast('Thank you for your positive feedback!', 'success');
     } else if (feedbackType === 'negative') {
@@ -217,12 +217,12 @@ class FeedbackComponent extends ComponentBase {
         responseDiv.innerHTML = '<p>Thank you for your feedback. We\'ll use it to improve our documentation.</p><p><a href="https://github.com/lagebj/docs/issues/new" style="color: #1e40af; text-decoration: underline;">Report an issue</a></p>';
         responseDiv.style.background = 'rgba(254, 226, 226, 0.5)';
         responseDiv.style.display = 'block';
-        
+
         // Focus the response div for screen readers
         responseDiv.setAttribute('tabindex', '-1');
         responseDiv.focus();
       }
-      
+
       // Show info toast
       this.showToast('We appreciate your feedback to help us improve.', 'info');
     } else if (feedbackType === 'custom') {
@@ -241,7 +241,7 @@ class FeedbackComponent extends ComponentBase {
           this.showToast('Action completed!', 'info');
       }
     }
-    
+
     // Remove loading state
     if (button.dataset.loading === 'true') {
       this.hideLoadingState(button);
@@ -256,7 +256,7 @@ class FeedbackComponent extends ComponentBase {
       });
     }
   }
-  
+
   /**
    * Show loading state on button
    * @param {HTMLElement} button - The button element
@@ -265,7 +265,7 @@ class FeedbackComponent extends ComponentBase {
     button.originalText = button.innerHTML;
     button.innerHTML = '<span class="loading-spinner"></span> Processing...';
     button.disabled = true;
-    
+
     // Add loading spinner styles if not already present
     if (!document.getElementById('loading-spinner-styles')) {
       const style = document.createElement('style');
@@ -280,7 +280,7 @@ class FeedbackComponent extends ComponentBase {
           border-top-color: white;
           animation: spin 1s ease-in-out infinite;
         }
-        
+
         @keyframes spin {
           to { transform: rotate(360deg); }
         }
@@ -288,7 +288,7 @@ class FeedbackComponent extends ComponentBase {
       document.head.appendChild(style);
     }
   }
-  
+
   /**
    * Hide loading state on button
    * @param {HTMLElement} button - The button element
@@ -299,7 +299,7 @@ class FeedbackComponent extends ComponentBase {
     }
     button.disabled = false;
   }
-  
+
   /**
    * Show toast notification
    * @param {string} message - The message to display
@@ -307,31 +307,31 @@ class FeedbackComponent extends ComponentBase {
    */
   showToast(message, type = 'info') {
     if (!this.toastContainer) return;
-    
+
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.setAttribute('role', 'alert');
     toast.setAttribute('aria-live', 'polite');
-    
+
     toast.innerHTML = `
       <span>${message}</span>
       <button class="toast-close" aria-label="Close notification">&times;</button>
     `;
-    
+
     this.toastContainer.appendChild(toast);
-    
+
     // Add close event listener
     const closeBtn = toast.querySelector('.toast-close');
     closeBtn.addEventListener('click', () => {
       this.hideToast(toast);
     });
-    
+
     // Auto-hide after 5 seconds
     setTimeout(() => {
       this.hideToast(toast);
     }, 5000);
   }
-  
+
   /**
    * Hide toast notification
    * @param {HTMLElement} toast - The toast element to hide
@@ -342,7 +342,7 @@ class FeedbackComponent extends ComponentBase {
       toast.remove();
     });
   }
-  
+
   /**
    * Copy text to clipboard
    * @param {string} text - The text to copy
@@ -362,7 +362,7 @@ class FeedbackComponent extends ComponentBase {
       document.body.removeChild(textArea);
     }
   }
-  
+
   /**
    * Share content
    * @param {string} text - The text to share
@@ -386,7 +386,7 @@ class FeedbackComponent extends ComponentBase {
       this.copyToClipboard(url);
     }
   }
-  
+
   /**
    * Open modal dialog
    * @param {string} modalId - The ID of the modal to open
@@ -396,7 +396,7 @@ class FeedbackComponent extends ComponentBase {
     if (modal) {
       modal.classList.add('active');
       modal.setAttribute('aria-hidden', 'false');
-      
+
       // Focus first focusable element in modal
       const firstFocusable = modal.querySelector(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -404,12 +404,12 @@ class FeedbackComponent extends ComponentBase {
       if (firstFocusable) {
         firstFocusable.focus();
       }
-      
+
       // Trap focus within modal
       this.trapFocus(modal);
     }
   }
-  
+
   /**
    * Close modal dialog
    * @param {HTMLElement} modal - The modal element to close
@@ -418,7 +418,7 @@ class FeedbackComponent extends ComponentBase {
     if (modal) {
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
-      
+
       // Return focus to the element that opened the modal
       const trigger = document.querySelector(`[data-modal-target="${modal.id}"]`);
       if (trigger) {
@@ -426,7 +426,7 @@ class FeedbackComponent extends ComponentBase {
       }
     }
   }
-  
+
   /**
    * Trap focus within an element
    * @param {HTMLElement} element - The element to trap focus within
@@ -435,12 +435,12 @@ class FeedbackComponent extends ComponentBase {
     const focusableElements = element.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     if (focusableElements.length === 0) return;
-    
+
     const firstFocusable = focusableElements[0];
     const lastFocusable = focusableElements[focusableElements.length - 1];
-    
+
     element.addEventListener('keydown', (e) => {
       if (e.key === 'Tab') {
         if (e.shiftKey) {
@@ -463,7 +463,7 @@ class FeedbackComponent extends ComponentBase {
    */
   initializeFeedbackComponents() {
     const feedbackComponents = document.querySelectorAll('.feedback-component');
-    
+
     feedbackComponents.forEach(component => {
       // Ensure buttons are focusable and have proper aria attributes
       const buttons = component.querySelectorAll('.feedback-btn');
@@ -474,7 +474,7 @@ class FeedbackComponent extends ComponentBase {
           button.setAttribute('aria-label', button.dataset.feedback === 'positive' ? 'Rate this page positively' : 'Rate this page negatively');
         }
       });
-      
+
       // Ensure response div has proper aria attributes
       const responseDiv = component.querySelector('.feedback-response');
       if (responseDiv) {
@@ -482,12 +482,12 @@ class FeedbackComponent extends ComponentBase {
         responseDiv.setAttribute('aria-live', 'polite');
       }
     });
-    
+
     // Initialize modals
     const modals = document.querySelectorAll('.feedback-modal');
     modals.forEach(modal => {
       modal.setAttribute('aria-hidden', 'true');
-      
+
       // Ensure close buttons have proper attributes
       const closeButtons = modal.querySelectorAll('.modal-close');
       closeButtons.forEach(button => {

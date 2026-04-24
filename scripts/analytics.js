@@ -7,13 +7,13 @@ class AnalyticsTracker {
   init() {
     // Track page views
     this.trackPageView();
-    
+
     // Track outbound link clicks
     this.trackOutboundLinks();
-    
+
     // Track search usage
     this.trackSearch();
-    
+
     // Track feedback responses
     this.trackFeedback();
   }
@@ -23,7 +23,7 @@ class AnalyticsTracker {
     if (window.plausible) {
       window.plausible('pageview');
     }
-    
+
     // Custom event for documentation page views
     this.sendEvent('doc_page_view', {
       path: window.location.pathname,
@@ -49,7 +49,7 @@ class AnalyticsTracker {
     const searchInput = document.getElementById('search-input');
     if (searchInput) {
       let searchTimeout;
-      
+
       searchInput.addEventListener('input', (e) => {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
@@ -60,7 +60,7 @@ class AnalyticsTracker {
           }
         }, 1000);
       });
-      
+
       // Track search result clicks
       const resultsContainer = document.getElementById('search-results');
       if (resultsContainer) {
@@ -96,7 +96,7 @@ class AnalyticsTracker {
     if (window.plausible) {
       window.plausible(eventName, { props });
     }
-    
+
     // For demonstration, log to console
     console.log('Analytics Event:', eventName, props);
   }

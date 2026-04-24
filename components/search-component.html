@@ -2,33 +2,33 @@
 <div class="search-container">
   <form class="search-form" role="search">
     <div class="search-input-wrapper">
-      <input type="text" 
-             id="search-input" 
-             placeholder="Search documentation..." 
-             autocomplete="off" 
+      <input type="text"
+             id="search-input"
+             placeholder="Search documentation..."
+             autocomplete="off"
              aria-autocomplete="list"
              aria-controls="search-results"
              aria-expanded="false"
              role="combobox" />
-      <svg class="search-icon" 
-           width="20" 
-           height="20" 
-           viewBox="0 0 24 24" 
-           fill="none" 
+      <svg class="search-icon"
+           width="20"
+           height="20"
+           viewBox="0 0 24 24"
+           fill="none"
            xmlns="http://www.w3.org/2000/svg"
            aria-hidden="true">
         <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
   </form>
-  
+
   <!-- Auto-complete Suggestions -->
-  <div id="search-suggestions" 
-       class="search-suggestions-dropdown" 
+  <div id="search-suggestions"
+       class="search-suggestions-dropdown"
        role="listbox"
        aria-label="Search suggestions">
   </div>
-  
+
   <!-- Search Controls -->
   <div class="search-controls" aria-controls="search-results">
     <div class="search-results-header">
@@ -39,7 +39,7 @@
         <option value="date">Sort by Date</option>
       </select>
     </div>
-    
+
     <!-- Facets Panel -->
     <div class="search-facets">
       <details class="facet-group">
@@ -59,7 +59,7 @@
           </label>
         </div>
       </details>
-      
+
       <details class="facet-group">
         <summary class="facet-summary">Filter by Section</summary>
         <div class="facet-options">
@@ -79,10 +79,10 @@
       </details>
     </div>
   </div>
-  
+
   <!-- Search Results -->
-  <div id="search-results" 
-       class="search-results-dropdown" 
+  <div id="search-results"
+       class="search-results-dropdown"
        role="listbox"
        aria-label="Search results">
   </div>
@@ -377,28 +377,28 @@
   .search-container {
     max-width: 100%;
   }
-  
+
   .search-controls {
     padding: 10px;
   }
-  
+
   .search-facets {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .search-results-dropdown {
     max-height: 300px;
   }
-  
+
   .search-result {
     padding: 12px 14px;
   }
-  
+
   .search-result h3 {
     font-size: 14px;
   }
-  
+
   .search-result p {
     font-size: 12px;
   }

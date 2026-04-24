@@ -34,7 +34,7 @@ STAGED_FILES=$(git diff --cached --name-only)
 for file in $STAGED_FILES; do
     # Skip if file doesn't exist (deleted files)
     [ ! -f "$file" ] && continue
-    
+
     # Check each internal pattern
     for pattern in "${INTERNAL_PATTERNS[@]}"; do
         if grep -q "$pattern" "$file" 2>/dev/null; then

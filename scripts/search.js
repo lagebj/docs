@@ -23,31 +23,31 @@ class SearchComponent extends ComponentBase {
       const lazyLoader = new LazyLoader({
         rootMargin: '50px' // Start loading 50px before entering viewport
       });
-      
+
       lazyLoader.observe(searchContainer, async () => {
         await this.safeExecute(async () => {
           // Show loading indicator
           this.showLoadingIndicator();
-          
+
           try {
             // Load search index only when search component is in viewport
             const response = await fetch('/reference/search-index.json');
-            
+
             // Check if response is ok
             if (!response.ok) {
               throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
             }
-            
+
             const searchData = await response.json();
-            
+
             // Validate search data
             if (!Array.isArray(searchData)) {
               throw new Error('Invalid search data format received');
             }
-            
+
             // Initialize facets from search data
             this.initializeFacets(searchData);
-            
+
             // Initialize Fuse.js with the search data
             const options = {
               keys: [
@@ -67,13 +67,13 @@ class SearchComponent extends ComponentBase {
               tokenize: true,
               matchAllTokens: false,
             };
-            
+
             this.fuse = new Fuse(searchData, options);
             this.setupEventListeners();
-            
+
             // Hide loading indicator
             this.hideLoadingIndicator();
-            
+
             // Track search initialization in analytics
             if (window.analytics) {
               window.analytics.trackCustomEvent('search_initialized', {
@@ -84,7 +84,7 @@ class SearchComponent extends ComponentBase {
           } catch (error) {
             // Hide loading indicator on error
             this.hideLoadingIndicator();
-            
+
             // Provide specific error messaging
             let userMessage = 'Search functionality is temporarily unavailable.';
             if (error.message.includes('fetch') || error.message.includes('network')) {
@@ -92,30 +92,30 @@ class SearchComponent extends ComponentBase {
             } else if (error.message.includes('JSON')) {
               userMessage = 'Search data is corrupted. Please try again later.';
             }
-            
+
             // Display user-friendly error if feedback component is available
             if (window.feedbackComponent) {
               window.feedbackComponent.showToast(userMessage, 'error');
             }
-            
+
             throw error;
           }
         }, (error) => {
           console.error('Failed to initialize search:', error);
           this.hideLoadingIndicator();
-          
+
           // Fallback: Setup minimal event listeners so search input still works
           this.setupMinimalEventListeners();
         });
       });
     }
   }
-  
+
   initializeFacets(searchData) {
     // Extract unique categories and sections for faceting
     const categories = [...new Set(searchData.map(item => item.category || 'Uncategorized'))];
     const sections = [...new Set(searchData.map(item => item.section || 'Other'))];
-    
+
     this.facets = {
       categories: categories.map(category => ({ name: category, selected: false })),
       sections: sections.map(section => ({ name: section, selected: false }))
@@ -134,12 +134,12 @@ class SearchComponent extends ComponentBase {
           // Show error message when user tries to search
           if (window.feedbackComponent && e.target.value.length >= 2) {
             window.feedbackComponent.showToast(
-              'Search is currently unavailable. Please try again later.', 
+              'Search is currently unavailable. Please try again later.',
               'error'
             );
           }
         });
-        
+
         // Show error on form submission
         const searchForm = document.querySelector('.search-form');
         if (searchForm) {
@@ -147,7 +147,7 @@ class SearchComponent extends ComponentBase {
             e.preventDefault();
             if (window.feedbackComponent) {
               window.feedbackComponent.showToast(
-                'Search is currently unavailable. Please try again later.', 
+                'Search is currently unavailable. Please try again later.',
                 'error'
               );
             }
@@ -199,10 +199,10 @@ class SearchComponent extends ComponentBase {
     this.safeExecute(() => {
       const searchInput = document.getElementById('search-input');
       const searchForm = document.querySelector('.search-form'); // Add form for better UX
-      
+
       if (searchInput) {
         let searchTimeout;
-        
+
         // Input event for search and auto-complete
         searchInput.addEventListener('input', (e) => {
           clearTimeout(searchTimeout);
@@ -217,7 +217,7 @@ class SearchComponent extends ComponentBase {
             }
           }, 300); // Debounce search by 300ms
         });
-        
+
         // Form submission handling
         if (searchForm) {
           searchForm.addEventListener('submit', (e) => {
@@ -228,12 +228,12 @@ class SearchComponent extends ComponentBase {
             }
           });
         }
-        
+
         // Keydown events for keyboard navigation
         searchInput.addEventListener('keydown', (e) => {
           this.handleKeyNavigation(e);
         });
-        
+
         // Show/hide results dropdown
         searchInput.addEventListener('focus', () => {
           const resultsContainer = document.getElementById('search-results');
@@ -241,17 +241,17 @@ class SearchComponent extends ComponentBase {
             resultsContainer.classList.add('show');
           }
         });
-        
+
         // Hide results when clicking outside
         document.addEventListener('click', (e) => {
           const searchContainer = searchInput.closest('.search-container');
           const resultsContainer = document.getElementById('search-results');
-          
+
           if (searchContainer && resultsContainer && !searchContainer.contains(e.target)) {
             resultsContainer.classList.remove('show');
           }
         });
-        
+
         // Handle search result clicks for analytics
         const resultsContainer = document.getElementById('search-results');
         if (resultsContainer) {
@@ -263,13 +263,13 @@ class SearchComponent extends ComponentBase {
                 text: resultLink.textContent.trim()
               });
             }
-            
+
             // Hide results after clicking
             resultsContainer.classList.remove('show');
           });
         }
       }
-      
+
       // Setup facet and sort event listeners
       this.setupFacetListeners();
       this.setupSortListeners();
@@ -285,31 +285,31 @@ class SearchComponent extends ComponentBase {
       filter.addEventListener('change', (e) => {
         const category = e.target.value;
         const isSelected = e.target.checked;
-        
+
         // Update facet selection
         const categoryFacet = this.facets.categories.find(f => f.name === category);
         if (categoryFacet) {
           categoryFacet.selected = isSelected;
         }
-        
+
         // Re-run search with facets
         this.applyFilters();
       });
     });
-    
+
     // Section facet listeners
     const sectionFilters = document.querySelectorAll('.facet-section');
     sectionFilters.forEach(filter => {
       filter.addEventListener('change', (e) => {
         const section = e.target.value;
         const isSelected = e.target.checked;
-        
+
         // Update facet selection
         const sectionFacet = this.facets.sections.find(f => f.name === section);
         if (sectionFacet) {
           sectionFacet.selected = isSelected;
         }
-        
+
         // Re-run search with facets
         this.applyFilters();
       });
@@ -329,14 +329,14 @@ class SearchComponent extends ComponentBase {
   handleKeyNavigation(e) {
     const resultsContainer = document.getElementById('search-results');
     if (!resultsContainer) return;
-    
+
     const results = resultsContainer.querySelectorAll('.search-result');
     if (results.length === 0) return;
-    
+
     // Current focused element
     const currentFocused = document.activeElement;
     const currentIndex = Array.from(results).indexOf(currentFocused.closest('.search-result'));
-    
+
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
@@ -344,7 +344,7 @@ class SearchComponent extends ComponentBase {
           results[currentIndex + 1].querySelector('a').focus();
         }
         break;
-        
+
       case 'ArrowUp':
         e.preventDefault();
         if (currentIndex > 0) {
@@ -354,11 +354,11 @@ class SearchComponent extends ComponentBase {
           document.getElementById('search-input').focus();
         }
         break;
-        
+
       case 'Enter':
         // Allow default behavior for link activation
         break;
-        
+
       case 'Escape':
         e.preventDefault();
         resultsContainer.classList.remove('show');
@@ -377,10 +377,10 @@ class SearchComponent extends ComponentBase {
       // Perform search with Fuse.js
       const results = this.fuse.search(query);
       this.filteredResults = results.map(result => result.item);
-      
+
       // Apply facets and sorting
       this.applyFilters();
-      
+
       // Track search queries in analytics
       if (window.analytics && this.filteredResults.length > 0) {
         window.analytics.trackCustomEvent('search_performed', {
@@ -398,29 +398,29 @@ class SearchComponent extends ComponentBase {
   applyFilters() {
     this.safeExecute(() => {
       let filtered = [...this.filteredResults];
-      
+
       // Apply category filters
       const selectedCategories = this.facets.categories
         .filter(facet => facet.selected)
         .map(facet => facet.name);
-        
+
       if (selectedCategories.length > 0) {
-        filtered = filtered.filter(item => 
+        filtered = filtered.filter(item =>
           selectedCategories.includes(item.category || 'Uncategorized')
         );
       }
-      
+
       // Apply section filters
       const selectedSections = this.facets.sections
         .filter(facet => facet.selected)
         .map(facet => facet.name);
-        
+
       if (selectedSections.length > 0) {
-        filtered = filtered.filter(item => 
+        filtered = filtered.filter(item =>
           selectedSections.includes(item.section || 'Other')
         );
       }
-      
+
       // Apply sorting
       this.filteredResults = this.sortResults(filtered);
       this.displayResults(this.filteredResults);
@@ -440,16 +440,16 @@ class SearchComponent extends ComponentBase {
       case 'relevance':
         // Results are already sorted by relevance from Fuse.js
         return results;
-        
+
       case 'title':
         return [...results].sort((a, b) => a.title.localeCompare(b.title));
-        
+
       case 'date':
         // Assuming items have a date property
-        return [...results].sort((a, b) => 
+        return [...results].sort((a, b) =>
           new Date(b.date || 0) - new Date(a.date || 0)
         );
-        
+
       default:
         return results;
     }
@@ -458,11 +458,11 @@ class SearchComponent extends ComponentBase {
   generateSuggestions(query) {
     this.safeExecute(() => {
       if (!this.fuse) return;
-      
+
       // Generate suggestions from search index
       const suggestions = this.fuse.search(query, { limit: 5 });
       this.suggestions = suggestions.map(suggestion => suggestion.item.title);
-      
+
       this.displaySuggestions(this.suggestions);
     }, (error) => {
       console.error('Error generating suggestions:', error);
@@ -474,22 +474,22 @@ class SearchComponent extends ComponentBase {
     this.safeExecute(() => {
       const suggestionsContainer = document.getElementById('search-suggestions');
       if (!suggestionsContainer) return;
-      
+
       if (suggestions.length === 0) {
         suggestionsContainer.innerHTML = '';
         suggestionsContainer.classList.remove('show');
         return;
       }
-      
+
       const html = suggestions.map(suggestion => `
         <div class="suggestion-item" role="option" tabindex="0">
           ${suggestion}
         </div>
       `).join('');
-      
+
       suggestionsContainer.innerHTML = html;
       suggestionsContainer.classList.add('show');
-      
+
       // Add click handlers for suggestions
       suggestionsContainer.querySelectorAll('.suggestion-item').forEach(item => {
         item.addEventListener('click', () => {
@@ -500,7 +500,7 @@ class SearchComponent extends ComponentBase {
             suggestionsContainer.classList.remove('show');
           }
         });
-        
+
         item.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             item.click();
@@ -537,7 +537,7 @@ class SearchComponent extends ComponentBase {
 
       // Limit results to 20 items for better performance
       const limitedResults = results.slice(0, 20);
-      
+
       const html = limitedResults.map(item => `
         <div class="search-result">
           <a href="${item.url}">
@@ -552,7 +552,7 @@ class SearchComponent extends ComponentBase {
       `).join('');
 
       resultsContainer.innerHTML = html;
-      
+
       // Update results count
       if (resultsCountElement) {
         resultsCountElement.textContent = `${results.length} result${results.length !== 1 ? 's' : ''}`;
@@ -565,7 +565,7 @@ class SearchComponent extends ComponentBase {
       }
     });
   }
-  
+
   clearResults() {
     const resultsContainer = document.getElementById('search-results');
     const resultsCountElement = document.getElementById('results-count');
@@ -577,28 +577,28 @@ class SearchComponent extends ComponentBase {
       resultsCountElement.textContent = '';
     }
   }
-  
+
   highlightMatches(content, matches) {
     // Safe execution wrapper for match highlighting
     try {
       if (!matches || matches.length === 0) {
         return content.substring(0, 150) + '...';
       }
-      
+
       // Extract content matches and sort by position
       const contentMatches = matches
         .filter(match => match.key === 'content')
         .flatMap(match => match.indices)
         .sort((a, b) => a[0] - b[0]);
-      
+
       if (contentMatches.length === 0) {
         return content.substring(0, 150) + '...';
       }
-      
+
       // Highlight matched terms in the content
       let highlightedContent = '';
       let lastIndex = 0;
-      
+
       // Process each match
       for (const [start, end] of contentMatches) {
         // Add text before the match
@@ -607,17 +607,17 @@ class SearchComponent extends ComponentBase {
         highlightedContent += `<mark>${content.substring(start, end + 1)}</mark>`;
         lastIndex = end + 1;
       }
-      
+
       // Add remaining text after last match
       highlightedContent += content.substring(lastIndex);
-      
+
       // Return excerpt around first match (better UX)
       const firstMatchStart = contentMatches[0][0];
       const excerptStart = Math.max(0, firstMatchStart - 60);
       const excerptEnd = Math.min(highlightedContent.length, excerptStart + 200);
-      
+
       let excerpt = highlightedContent.substring(excerptStart, excerptEnd);
-      
+
       // Add ellipsis if needed
       if (excerptStart > 0) {
         excerpt = '...' + excerpt;
@@ -625,7 +625,7 @@ class SearchComponent extends ComponentBase {
       if (excerptEnd < highlightedContent.length) {
         excerpt = excerpt + '...';
       }
-      
+
       return excerpt;
     } catch (error) {
       console.error('Error highlighting matches:', error);

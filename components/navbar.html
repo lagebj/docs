@@ -4,14 +4,14 @@
     <a href="/" class="flex items-center" aria-label="Grounded Systems Home">
       <img src="/images/logo-navbar.svg" alt="Grounded Systems Logo" />
     </a>
-    
+
     <!-- Search Component -->
     <div class="hidden md:block" id="desktop-search" role="search">
       <!-- Search component will be injected here -->
     </div>
-    
-    <button class="mobile-menu-toggle" 
-            aria-label="Toggle mobile menu" 
+
+    <button class="mobile-menu-toggle"
+            aria-label="Toggle mobile menu"
             aria-expanded="false"
             aria-controls="mobile-navigation">
       <div class="hamburger">
@@ -20,10 +20,10 @@
         <span></span>
       </div>
     </button>
-    
-    <nav class="gs-nav-tabs md:hidden" 
+
+    <nav class="gs-nav-tabs md:hidden"
          id="mobile-navigation"
-         role="navigation" 
+         role="navigation"
          aria-label="Main navigation"
          aria-hidden="true">
       <!-- Navigation tabs will be populated by Mintlify -->
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(response => response.text())
       .then(html => {
         searchContainer.innerHTML = html;
-        
+
         // Load search component functionality
         if (typeof SearchComponent !== 'undefined') {
           new SearchComponent();

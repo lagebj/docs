@@ -1,6 +1,6 @@
 # Contribute to the documentation
 
-Thank you for your interest in contributing to our documentation! 
+Thank you for your interest in contributing to our documentation!
 
 ### Option 1: Edit directly on GitHub
 
