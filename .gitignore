@@ -25,6 +25,8 @@ writing-guidelines.md
 reference/agent-skills.mdx
 reference/premium-components.mdx
 design/
+design-system/
+design-system-docs/
 
 # Internal planning and process documents
 ESCALATION_*.md
@@ -41,8 +43,16 @@ scripts/agents/
 scripts/check-internal-materials.sh
 .pre-commit-config.yaml
 
-# Agent configuration (internal)
+# Internal templates and scaffolding
+templates/
+
+# Internal design system and configuration (not for public repo)
+design-system/
+design-system-docs/
 agents/
+
+# Backup files
+*.backup
 
 # Backup files
 *.backup
