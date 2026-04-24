@@ -148,6 +148,8 @@ class SearchComponent extends ComponentBase {
     this.input = document.getElementById('search-input');
     this.resultsContainer = document.getElementById('search-results');
     this.currentIndex = -1;
+    this.searchData = [];
+    this.fuse = null;
     
     if (this.input && this.resultsContainer) {
       this.init();
@@ -162,10 +164,19 @@ class SearchComponent extends ComponentBase {
       this.input.addEventListener('focus', this.handleFocus.bind(this));
       
       // Close search results when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!this.input.contains(e.target) && !this.resultsContainer.contains(e.target)) {
+      const handleClickOutside = (e) => {
+        if (this.resultsContainer.classList.contains('show') && 
+            !this.input.contains(e.target) && 
+            !this.resultsContainer.contains(e.target)) {
           this.hideResults();
         }
+      };
+      
+      document.addEventListener('click', handleClickOutside);
+      
+      // Clean up event listener when component is destroyed
+      window.addEventListener('beforeunload', () => {
+        document.removeEventListener('click', handleClickOutside);
       });
       
       // Initialize Fuse.js for search
@@ -179,7 +190,12 @@ class SearchComponent extends ComponentBase {
   
   async initializeSearch() {
     return this.safeExecute(async () => {
-      // This would normally load search data
+      // Check if we're in a browser environment
+      if (typeof window === 'undefined') {
+        throw new Error('Search component can only be initialized in a browser environment');
+      }
+      
+      // This would normally load search data from an external source
       // For now, we'll simulate with sample data
       this.searchData = [
         { title: 'Getting Started', content: 'Learn how to get started with Grounded Systems', url: '/getting-started' },
@@ -187,14 +203,29 @@ class SearchComponent extends ComponentBase {
         { title: 'Component Library', content: 'Reusable components for documentation', url: '/components' }
       ];
       
-      // Simulate Fuse.js initialization
+      // Simulate Fuse.js initialization with better search algorithm
       this.fuse = {
         search: (query) => {
-          if (!query) return [];
-          return this.searchData.filter(item => 
-            item.title.toLowerCase().includes(query.toLowerCase()) ||
-            item.content.toLowerCase().includes(query.toLowerCase())
-          );
+          if (!query || typeof query !== 'string') return [];
+          
+          // Normalize query for better matching
+          const normalizedQuery = query.toLowerCase().trim();
+          if (!normalizedQuery) return [];
+          
+          return this.searchData.filter(item => {
+            // Check if query matches title or content
+            const titleMatch = item.title && item.title.toLowerCase().includes(normalizedQuery);
+            const contentMatch = item.content && item.content.toLowerCase().includes(normalizedQuery);
+            return titleMatch || contentMatch;
+          }).sort((a, b) => {
+            // Prioritize title matches over content matches
+            const aTitleMatch = a.title && a.title.toLowerCase().includes(normalizedQuery);
+            const bTitleMatch = b.title && b.title.toLowerCase().includes(normalizedQuery);
+            
+            if (aTitleMatch && !bTitleMatch) return -1;
+            if (!aTitleMatch && bTitleMatch) return 1;
+            return 0;
+          });
         }
       };
     }, (error) => {
@@ -215,9 +246,16 @@ class SearchComponent extends ComponentBase {
   }
   
   async handleInput(event) {
+    // Validate event and target
+    if (!event || !event.target) {
+      console.warn('Invalid event object passed to handleInput');
+      return;
+    }
+    
     await this.safeExecute(async () => {
       const query = event.target.value.trim();
       
+      // Early return for empty queries
       if (query.length === 0) {
         this.hideResults();
         return;
@@ -225,8 +263,13 @@ class SearchComponent extends ComponentBase {
       
       // Update ARIA attributes
       this.input.setAttribute('aria-expanded', 'true');
+      this.input.setAttribute('aria-activedescendant', '');
       
-      // Perform search
+      // Perform search with validation
+      if (!this.fuse || typeof this.fuse.search !== 'function') {
+        throw new Error('Search index not properly initialized');
+      }
+      
       const results = this.fuse.search(query);
       
       // Display results
@@ -238,6 +281,11 @@ class SearchComponent extends ComponentBase {
   }
   
   handleKeyDown(event) {
+    // Validate event
+    if (!event || !event.key) {
+      return;
+    }
+    
     const results = this.resultsContainer.querySelectorAll('.search-result');
     
     switch (event.key) {
@@ -252,8 +300,14 @@ class SearchComponent extends ComponentBase {
         this.currentIndex = Math.max(this.currentIndex - 1, -1);
         if (this.currentIndex === -1) {
           this.input.focus();
+          this.input.setAttribute('aria-activedescendant', '');
         } else {
           this.focusResult(this.currentIndex);
+          // Update aria-activedescendant for screen readers
+          const activeResult = results[this.currentIndex];
+          if (activeResult) {
+            this.input.setAttribute('aria-activedescendant', activeResult.id);
+          }
         }
         break;
         
@@ -269,15 +323,34 @@ class SearchComponent extends ComponentBase {
         this.hideResults();
         this.input.blur();
         break;
+        
+      case 'Tab':
+        // Allow tab key to function normally
+        break;
+        
+      default:
+        // Reset index for character keys (allows typing to restart navigation)
+        if (event.key.length === 1) {
+          this.currentIndex = -1;
+          this.input.setAttribute('aria-activedescendant', '');
+        }
     }
   }
   
   handleFocus() {
     // Reset current index when input gains focus
     this.currentIndex = -1;
+    this.input.setAttribute('aria-activedescendant', '');
   }
   
   displayResults(results) {
+    // Validate results parameter
+    if (!Array.isArray(results)) {
+      console.warn('Invalid results array passed to displayResults');
+      this.showError('Search results format invalid.');
+      return;
+    }
+    
     if (results.length === 0) {
       this.resultsContainer.innerHTML = '<div class="no-results">No results found</div>';
       this.resultsContainer.classList.add('show');
@@ -289,9 +362,10 @@ class SearchComponent extends ComponentBase {
            role="option" 
            tabindex="-1" 
            id="search-result-${index}"
-           data-url="${result.url}">
-        <h3>${result.title}</h3>
-        <p>${result.content}</p>
+           data-url="${this.escapeHtml(result.url || '#')}"
+           aria-selected="false">
+        <h3>${this.escapeHtml(result.title || '')}</h3>
+        <p>${this.escapeHtml(result.content || '')}</p>
       </div>
     `).join('');
     
@@ -300,17 +374,34 @@ class SearchComponent extends ComponentBase {
     
     // Add click handlers to results
     this.resultsContainer.querySelectorAll('.search-result').forEach((result, index) => {
-      result.addEventListener('click', () => {
-        const url = result.getAttribute('data-url');
-        if (url) {
+      // Remove any existing event listeners to prevent duplicates
+      const clone = result.cloneNode(true);
+      result.parentNode.replaceChild(clone, result);
+      
+      clone.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = clone.getAttribute('data-url');
+        if (url && url !== '#') {
           window.location.href = url;
         }
       });
       
-      result.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          result.click();
+      clone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          clone.click();
         }
+      });
+      
+      // Add hover and focus indicators for better UX
+      clone.addEventListener('mouseenter', () => {
+        // Clear previous selection
+        this.resultsContainer.querySelectorAll('.search-result').forEach(r => {
+          r.setAttribute('aria-selected', 'false');
+        });
+        // Mark this result as selected
+        clone.setAttribute('aria-selected', 'true');
+        this.currentIndex = index;
       });
     });
   }
@@ -318,24 +409,48 @@ class SearchComponent extends ComponentBase {
   hideResults() {
     this.resultsContainer.classList.remove('show');
     this.input.setAttribute('aria-expanded', 'false');
+    this.input.setAttribute('aria-activedescendant', '');
     this.currentIndex = -1;
   }
   
   focusResult(index) {
     const results = this.resultsContainer.querySelectorAll('.search-result');
     if (index >= 0 && index < results.length) {
+      // Clear previous selection
+      this.resultsContainer.querySelectorAll('.search-result').forEach(r => {
+        r.setAttribute('aria-selected', 'false');
+      });
+      // Focus and mark this result as selected
       results[index].focus();
+      results[index].setAttribute('aria-selected', 'true');
     }
   }
   
   showError(message) {
-    this.resultsContainer.innerHTML = `<div class="no-results">${message}</div>`;
+    // Sanitize error message
+    const sanitizedMessage = this.escapeHtml(message || 'An error occurred');
+    
+    this.resultsContainer.innerHTML = `<div class="no-results">${sanitizedMessage}</div>`;
     this.resultsContainer.classList.add('show');
     
     // Hide error after 5 seconds
     setTimeout(() => {
       this.hideResults();
     }, 5000);
+  }
+  
+  // Utility method to escape HTML to prevent XSS
+  escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') {
+      return '';
+    }
+    
+    return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 }
 

@@ -39,11 +39,12 @@ Tools that help implement or assess adherence to the model should be separate re
 
 All repositories must follow the naming pattern:
 
-```
+```text
 gs-[project-name]
 ```
 
 Examples:
+
 - `gs-core-framework`
 - `gs-deployment-tool`
 - `gs-validation-suite`
@@ -63,6 +64,7 @@ Repositories must include:
 ### Repository Owners
 
 Each repository must have designated owners who:
+
 - Maintain code quality and architectural consistency
 - Review and approve pull requests
 - Manage releases and versioning
@@ -71,6 +73,7 @@ Each repository must have designated owners who:
 ### Integration with Documentation
 
 Repositories must:
+
 - Link back to relevant documentation in the main site
 - Include runnable examples that demonstrate concepts
 - Update documentation when implementation changes significantly
@@ -78,6 +81,7 @@ Repositories must:
 ## Versioning Strategy
 
 Follow Semantic Versioning (SemVer):
+
 - MAJOR version for incompatible API changes
 - MINOR version for backward-compatible functionality
 - PATCH version for backward-compatible bug fixes
@@ -87,6 +91,7 @@ Tag releases with git tags following the format `vX.Y.Z`.
 ## Security Considerations
 
 All repositories must:
+
 - Have automated security scanning in CI/CD pipeline
 - Define a SECURITY.md file with vulnerability reporting procedures
 - Restrict direct commit access to owners only
@@ -105,11 +110,13 @@ All repositories must:
 ### Archival Process
 
 Repositories should be archived when:
+
 - They are no longer actively maintained
 - They have been superseded by newer implementations
 - They contain deprecated approaches
 
 Archived repositories:
+
 - Remain publicly readable
 - Display clear notices about their status
 - Link to replacement projects if applicable

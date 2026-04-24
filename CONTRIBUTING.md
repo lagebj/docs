@@ -1,8 +1,8 @@
 # Contribute to the documentation
 
-Thank you for your interest in contributing to our documentation! 
+Thank you for your interest in contributing to our documentation!
 
-### Option 1: Edit directly on GitHub
+## Option 1: Edit directly on GitHub
 
 1. Navigate to the page you want to edit
 2. Click the "Edit this file" button (the pencil icon)
@@ -25,6 +25,7 @@ For contribution scope and review expectations, see the [contribution model](ref
 ## Conventional Commits
 
 All commits and PR titles must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
 - Format: `type(scope): description`
 - Valid types: `feat`, `fix`, `chore`, `docs`, `style`, `refactor`, `test`, `build`, `ci`
 - Example: `feat(auth): add login functionality`

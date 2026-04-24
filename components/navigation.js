@@ -261,7 +261,7 @@ class ComponentBase {
     
     // Display user-friendly error messages
     // Track error with analytics if available
-    if (window.analytics) {
+    if (window.analytics && typeof window.analytics.trackCustomEvent === 'function') {
       window.analytics.trackCustomEvent('component_error', {
         component: this.constructor.name,
         errorType: error.constructor.name,
@@ -271,7 +271,7 @@ class ComponentBase {
       });
     }
     
-    if (customHandler) {
+    if (customHandler && typeof customHandler === 'function') {
       customHandler(error);
     } else {
       this.defaultErrorHandler(error);

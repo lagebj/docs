@@ -2,7 +2,7 @@
 <header class="sticky top-0 z-50 backdrop-blur-md border-b border-gs-border-muted shadow-lg shadow-slate-800/8 bg-white/96 py-3" role="banner">
   <div class="container mx-auto px-4 flex items-center justify-between">
     <a href="/" class="flex items-center" aria-label="Grounded Systems Home">
-      <img src="/images/logo-navbar.svg" alt="Grounded Systems Logo" />
+      <img src="/images/logo-navbar.svg" alt="Grounded Systems Logo" width="120" height="30" />
     </a>
     
     <!-- Search Component -->
@@ -13,8 +13,9 @@
     <button class="mobile-menu-toggle" 
             aria-label="Toggle mobile menu" 
             aria-expanded="false"
-            aria-controls="mobile-navigation">
-      <div class="hamburger">
+            aria-controls="mobile-navigation"
+            type="button">
+      <div class="hamburger" aria-hidden="true">
         <span></span>
         <span></span>
         <span></span>
@@ -35,7 +36,7 @@
               data-expanded-text="Collapse Documentation"
               data-collapsed-text="Expand Documentation">
         Documentation
-        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
