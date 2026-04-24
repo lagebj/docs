@@ -1,4 +1,4 @@
-// Mobile navigation component with enhanced accessibility
+// Mobile navigation component with enhanced accessibility and touch optimization
 document.addEventListener('DOMContentLoaded', () => {
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const navTabs = document.querySelector('.gs-navbar .gs-nav-tabs');
@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (mobileMenuToggle && navTabs && hamburger) {
     // Set initial aria attributes
     mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenuToggle.setAttribute('aria-controls', 'mobile-navigation');
     navTabs.setAttribute('role', 'menubar');
+    
+    // Improve touch targets
+    mobileMenuToggle.style.minHeight = '44px'; // Minimum touch target size
+    mobileMenuToggle.style.minWidth = '44px';
     
     mobileMenuToggle.addEventListener('click', () => {
       navTabs.classList.toggle('active');
@@ -123,6 +128,24 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       }
+    });
+    
+    // Add touch optimization for navigation links
+    const navLinks = navTabs.querySelectorAll('a');
+    navLinks.forEach(link => {
+      // Ensure minimum touch target size
+      link.style.minHeight = '44px';
+      link.style.display = 'flex';
+      link.style.alignItems = 'center';
+      
+      // Add touch-specific styles
+      link.addEventListener('touchstart', () => {
+        link.classList.add('touch-active');
+      });
+      
+      link.addEventListener('touchend', () => {
+        link.classList.remove('touch-active');
+      });
     });
   }
   

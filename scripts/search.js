@@ -11,62 +11,166 @@ class SearchComponent extends ComponentBase {
     this.facets = {};
     this.sortOption = 'relevance';
     this.suggestions = [];
+    this.isLoading = false;
     this.init();
   }
 
   async init() {
     await this.safeExecute(async () => {
-      // Load search index
-      const response = await fetch('/reference/search-index.json');
-      const searchData = await response.json();
+      // Show loading indicator
+      this.showLoadingIndicator();
       
-      // Initialize facets from search data
-      this.initializeFacets(searchData);
-      
-      // Initialize Fuse.js with the search data
-      const options = {
-        keys: [
-          { name: 'title', weight: 0.4 },
-          { name: 'content', weight: 0.3 },
-          { name: 'section', weight: 0.2 },
-          { name: 'category', weight: 0.1 }
-        ],
-        threshold: 0.3,
-        includeScore: true,
-        includeMatches: true,
-        minMatchCharLength: 2,
-        shouldSort: true,
-        findAllMatches: false,
-        location: 0,
-        distance: 100,
-        tokenize: true,
-        matchAllTokens: false,
-      };
-      
-      this.fuse = new Fuse(searchData, options);
-      this.setupEventListeners();
-      
-      // Track search initialization in analytics
-      if (window.analytics) {
-        window.analytics.trackCustomEvent('search_initialized', {
-          timestamp: new Date().toISOString(),
-          indexSize: searchData.length
-        });
+      try {
+        // Load search index
+        const response = await fetch('/reference/search-index.json');
+        
+        // Check if response is ok
+        if (!response.ok) {
+          throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
+        }
+        
+        const searchData = await response.json();
+        
+        // Validate search data
+        if (!Array.isArray(searchData)) {
+          throw new Error('Invalid search data format received');
+        }
+        
+        // Initialize facets from search data
+        this.initializeFacets(searchData);
+        
+        // Initialize Fuse.js with the search data
+        const options = {
+          keys: [
+            { name: 'title', weight: 0.4 },
+            { name: 'content', weight: 0.3 },
+            { name: 'section', weight: 0.2 },
+            { name: 'category', weight: 0.1 }
+          ],
+          threshold: 0.3,
+          includeScore: true,
+          includeMatches: true,
+          minMatchCharLength: 2,
+          shouldSort: true,
+          findAllMatches: false,
+          location: 0,
+          distance: 100,
+          tokenize: true,
+          matchAllTokens: false,
+        };
+        
+        this.fuse = new Fuse(searchData, options);
+        this.setupEventListeners();
+        
+        // Hide loading indicator
+        this.hideLoadingIndicator();
+        
+        // Track search initialization in analytics
+        if (window.analytics) {
+          window.analytics.trackCustomEvent('search_initialized', {
+            timestamp: new Date().toISOString(),
+            indexSize: searchData.length
+          });
+        }
+      } catch (error) {
+        // Hide loading indicator on error
+        this.hideLoadingIndicator();
+        
+        // Provide specific error messaging
+        let userMessage = 'Search functionality is temporarily unavailable.';
+        if (error.message.includes('fetch') || error.message.includes('network')) {
+          userMessage = 'Search is unavailable due to network issues. Please check your connection.';
+        } else if (error.message.includes('JSON')) {
+          userMessage = 'Search data is corrupted. Please try again later.';
+        }
+        
+        // Display user-friendly error if feedback component is available
+        if (window.feedbackComponent) {
+          window.feedbackComponent.showToast(userMessage, 'error');
+        }
+        
+        throw error;
       }
     }, (error) => {
       console.error('Failed to initialize search:', error);
+      this.hideLoadingIndicator();
+      
+      // Fallback: Setup minimal event listeners so search input still works
+      this.setupMinimalEventListeners();
     });
   }
 
-  initializeFacets(searchData) {
-    // Extract unique categories and sections for faceting
-    const categories = [...new Set(searchData.map(item => item.category || 'Uncategorized'))];
-    const sections = [...new Set(searchData.map(item => item.section || 'Other'))];
-    
-    this.facets = {
-      categories: categories.map(category => ({ name: category, selected: false })),
-      sections: sections.map(section => ({ name: section, selected: false }))
-    };
+  /**
+   * Setup minimal event listeners for graceful degradation
+   */
+  setupMinimalEventListeners() {
+    this.safeExecute(() => {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        // Basic input handling for search
+        searchInput.addEventListener('input', (e) => {
+          // Show error message when user tries to search
+          if (window.feedbackComponent && e.target.value.length >= 2) {
+            window.feedbackComponent.showToast(
+              'Search is currently unavailable. Please try again later.', 
+              'error'
+            );
+          }
+        });
+        
+        // Show error on form submission
+        const searchForm = document.querySelector('.search-form');
+        if (searchForm) {
+          searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (window.feedbackComponent) {
+              window.feedbackComponent.showToast(
+                'Search is currently unavailable. Please try again later.', 
+                'error'
+              );
+            }
+          });
+        }
+      }
+    }, (error) => {
+      console.error('Error setting up minimal search event listeners:', error);
+    });
+  }
+
+  /**
+   * Show loading indicator in search input
+   */
+  showLoadingIndicator() {
+    this.isLoading = true;
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.classList.add('loading');
+      // Add loading spinner element if it doesn't exist
+      let spinner = searchInput.parentNode.querySelector('.search-loading-spinner');
+      if (!spinner) {
+        spinner = document.createElement('div');
+        spinner.className = 'search-loading-spinner';
+        spinner.setAttribute('role', 'status');
+        spinner.setAttribute('aria-label', 'Searching...');
+        searchInput.parentNode.appendChild(spinner);
+      }
+      spinner.style.display = 'block';
+    }
+  }
+
+  /**
+   * Hide loading indicator in search input
+   */
+  hideLoadingIndicator() {
+    this.isLoading = false;
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.classList.remove('loading');
+      const spinner = searchInput.parentNode.querySelector('.search-loading-spinner');
+      if (spinner) {
+        spinner.style.display = 'none';
+      }
+    }
   }
 
   setupEventListeners() {
@@ -459,21 +563,48 @@ class SearchComponent extends ComponentBase {
         return content.substring(0, 150) + '...';
       }
       
-      // Simple highlighting implementation
-      let highlightedContent = content;
-      
-      // Sort matches by position to maintain order
-      const sortedMatches = matches
+      // Extract content matches and sort by position
+      const contentMatches = matches
         .filter(match => match.key === 'content')
         .flatMap(match => match.indices)
         .sort((a, b) => a[0] - b[0]);
       
-      if (sortedMatches.length > 0) {
-        // Just return beginning of content with ellipsis for now
+      if (contentMatches.length === 0) {
         return content.substring(0, 150) + '...';
       }
       
-      return content.substring(0, 150) + '...';
+      // Highlight matched terms in the content
+      let highlightedContent = '';
+      let lastIndex = 0;
+      
+      // Process each match
+      for (const [start, end] of contentMatches) {
+        // Add text before the match
+        highlightedContent += content.substring(lastIndex, start);
+        // Add highlighted match
+        highlightedContent += `<mark>${content.substring(start, end + 1)}</mark>`;
+        lastIndex = end + 1;
+      }
+      
+      // Add remaining text after last match
+      highlightedContent += content.substring(lastIndex);
+      
+      // Return excerpt around first match (better UX)
+      const firstMatchStart = contentMatches[0][0];
+      const excerptStart = Math.max(0, firstMatchStart - 60);
+      const excerptEnd = Math.min(highlightedContent.length, excerptStart + 200);
+      
+      let excerpt = highlightedContent.substring(excerptStart, excerptEnd);
+      
+      // Add ellipsis if needed
+      if (excerptStart > 0) {
+        excerpt = '...' + excerpt;
+      }
+      if (excerptEnd < highlightedContent.length) {
+        excerpt = excerpt + '...';
+      }
+      
+      return excerpt;
     } catch (error) {
       console.error('Error highlighting matches:', error);
       return content.substring(0, 150) + '...';
