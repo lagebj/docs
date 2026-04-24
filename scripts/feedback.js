@@ -6,6 +6,7 @@
  */
 
 import { ComponentBase } from '../components/base-component.js';
+import { LazyLoader } from '../components/lazy-loader.js';
 
 class FeedbackComponent extends ComponentBase {
   constructor() {
@@ -48,18 +49,16 @@ class FeedbackComponent extends ComponentBase {
       }
     });
 
-    // Handle keyboard events for accessibility
+    // Handle keyboard events globally
     document.addEventListener('keydown', (e) => {
       // Handle Enter and Space keys for feedback buttons
-      if (e.key === 'Enter' || e.key === ' ') {
-        if (e.target.classList.contains('feedback-btn')) {
-          e.preventDefault();
-          this.safeExecute(() => {
-            this.handleFeedbackClick(e.target);
-          }, (error) => {
-            console.error('Error handling feedback keyboard event:', error);
-          });
-        }
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('feedback-btn')) {
+        e.preventDefault();
+        this.safeExecute(() => {
+          this.handleFeedbackClick(e.target);
+        }, (error) => {
+          console.error('Error handling feedback keyboard event:', error);
+        });
       }
       
       // Handle Escape key to close feedback response or modals
@@ -85,15 +84,6 @@ class FeedbackComponent extends ComponentBase {
           console.error('Error handling escape key:', error);
         });
       }
-    });
-
-    // Initialize feedback components when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      this.safeExecute(() => {
-        this.initializeFeedbackComponents();
-      }, (error) => {
-        console.error('Error initializing feedback components:', error);
-      });
     });
   }
   
@@ -481,32 +471,15 @@ class FeedbackComponent extends ComponentBase {
         button.setAttribute('role', 'button');
         button.setAttribute('tabindex', '0');
         if (!button.hasAttribute('aria-label')) {
-          const feedbackType = button.dataset.feedback;
-          let ariaLabel = 'Provide feedback';
-          
-          if (feedbackType === 'positive') {
-            ariaLabel = 'Rate this page positively';
-          } else if (feedbackType === 'negative') {
-            ariaLabel = 'Rate this page negatively';
-          } else if (feedbackType === 'custom') {
-            const action = button.dataset.action;
-            if (action === 'copy') {
-              ariaLabel = 'Copy to clipboard';
-            } else if (action === 'share') {
-              ariaLabel = 'Share this page';
-            }
-          }
-          
-          button.setAttribute('aria-label', ariaLabel);
+          button.setAttribute('aria-label', button.dataset.feedback === 'positive' ? 'Rate this page positively' : 'Rate this page negatively');
         }
       });
       
       // Ensure response div has proper aria attributes
       const responseDiv = component.querySelector('.feedback-response');
       if (responseDiv) {
-        responseDiv.setAttribute('role', 'status');
+        responseDiv.setAttribute('role', 'alert');
         responseDiv.setAttribute('aria-live', 'polite');
-        responseDiv.setAttribute('aria-atomic', 'true');
       }
     });
     
@@ -514,22 +487,12 @@ class FeedbackComponent extends ComponentBase {
     const modals = document.querySelectorAll('.feedback-modal');
     modals.forEach(modal => {
       modal.setAttribute('aria-hidden', 'true');
-      modal.setAttribute('aria-modal', 'true');
-      modal.setAttribute('role', 'dialog');
       
       // Ensure close buttons have proper attributes
       const closeButtons = modal.querySelectorAll('.modal-close');
       closeButtons.forEach(button => {
         button.setAttribute('aria-label', 'Close dialog');
       });
-      
-      // Ensure modal has accessible name
-      const modalHeader = modal.querySelector('.modal-header h2');
-      if (modalHeader && !modal.getAttribute('aria-labelledby')) {
-        const headerId = modalHeader.id || 'modal-title-' + Math.random().toString(36).substr(2, 9);
-        modalHeader.id = headerId;
-        modal.setAttribute('aria-labelledby', headerId);
-      }
     });
   }
 }
