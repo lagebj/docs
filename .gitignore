@@ -6,6 +6,7 @@ node_modules
 .env.local
 
 # Internal documentation files - NEVER commit these
+.paperclip/
 COMPLETED_TASK_*
 FINAL_SUMMARY_*
 ENGINEERING_REVIEW_*
