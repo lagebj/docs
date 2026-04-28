@@ -1,49 +1,36 @@
 {
   "tabs": [
     {
-      "tab": "Start",
+      "tab": "Introduction",
       "groups": [
         {
-          "group": "Overview",
+          "group": "Getting Started",
           "pages": [
             "index"
           ]
         },
         {
-          "group": "Customer Guide",
+          "group": "Audience Perspectives",
           "pages": [
             "customers/index",
-            "customers/what-we-help-with",
-            "customers/how-we-work",
-            "customers/when-we-are-a-fit"
-          ]
-        },
-        {
-          "group": "Practitioner Guide",
-          "pages": [
-            "practitioners/index",
-            "practitioners/who-thrives-here",
-            "practitioners/how-we-think",
-            "practitioners/what-this-work-demands"
+            "practitioners/index"
           ]
         }
       ]
     },
     {
-      "tab": "Method",
+      "tab": "Our Approach",
       "groups": [
         {
-          "group": "Principle Set",
+          "group": "Foundation Principles",
           "pages": [
             "principles/index",
             "principles/core-principles",
-            "principles/anti-patterns",
-            "principles/engagement-model",
-            "principles/grounded-practitioners"
+            "principles/anti-patterns"
           ]
         },
         {
-          "group": "Playbook Guides",
+          "group": "Methodology and Practices",
           "pages": [
             "playbook/index",
             "playbook/entry-gate",
@@ -55,11 +42,39 @@
             "playbook/taper-and-exit",
             "playbook/checklists"
           ]
+        },
+        {
+          "group": "Engagement Model",
+          "pages": [
+            "principles/engagement-model",
+            "principles/grounded-practitioners"
+          ]
         }
       ]
     },
     {
-      "tab": "Cases",
+      "tab": "Working Together",
+      "groups": [
+        {
+          "group": "Collaborative Activities",
+          "pages": [
+            "customers/what-we-help-with",
+            "customers/how-we-work",
+            "practitioners/how-we-think",
+            "practitioners/what-this-work-demands"
+          ]
+        },
+        {
+          "group": "Success Patterns",
+          "pages": [
+            "customers/when-we-are-a-fit",
+            "practitioners/who-thrives-here"
+          ]
+        }
+      ]
+    },
+    {
+      "tab": "Examples",
       "groups": [
         {
           "group": "Case Library",
@@ -76,7 +91,7 @@
       "tab": "Reference",
       "groups": [
         {
-          "group": "Reference Library",
+          "group": "Documentation Resources",
           "pages": [
             "reference/index",
             "reference/glossary",
