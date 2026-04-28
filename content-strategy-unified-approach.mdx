@@ -1,0 +1,98 @@
+---
+title: Unified Content Strategy for Customers & Practitioners
+description: Merging customer and practitioner sections into a cohesive information architecture
+---
+
+## Executive Summary
+
+After analyzing the current customer and practitioner sections, I propose a unified information architecture that serves both audiences through a role-based navigation approach. This strategy addresses the core issue of audience overlap while maintaining content relevance for both groups.
+
+## Current State Analysis
+
+**Customer Section Focus:**
+- Business outcomes and value propositions
+- Delivery challenges and modernization obstacles
+- Organizational fit and readiness assessment
+
+**Practitioner Section Focus:**
+- Individual practitioner fit and capabilities
+- Working posture and decision-making approaches
+- Technical and cultural expectations
+
+**Key Overlap:**
+Both sections address organizational transformation, capability development, and long-term sustainability. The distinction is in perspective (business vs. individual practitioner) rather than subject matter.
+
+## Proposed Unified Information Architecture
+
+### Primary Navigation Structure
+```
+/engage/
+├── Organizations (formerly Customers)
+├── Practitioners
+└── Shared Principles
+```
+
+### Content Organization Framework
+1. **Organizations** - Business-focused content addressing:
+   - Value proposition and outcomes
+   - Implementation approach and methodology
+   - Fit assessment and readiness
+
+2. **Practitioners** - Individual-focused content addressing:
+   - Role expectations and capabilities
+   - Working posture and decision frameworks
+   - Career development and growth opportunities
+
+3. **Shared Principles** - Common foundational content:
+   - Core principles and values
+   - Working methods and approaches
+   - Case studies and outcomes
+
+## URL Structure Proposal
+
+- **Organizations Path:** `/engage/organizations/*`
+  - `/engage/organizations/what-we-help-with`
+  - `/engage/organizations/how-we-work`
+  - `/engage/organizations/when-we-are-a-fit`
+
+- **Practitioners Path:** `/engage/practitioners/*`
+  - `/engage/practitioners/who-thrives-here`
+  - `/engage/practitioners/how-we-think`
+  - `/engage/practitioners/what-this-work-demands`
+
+- **Shared Content:** `/engage/shared/*` or top-level access
+
+## Content Migration Plan
+
+### Phase 1: Infrastructure Setup
+- Create new directory structure `/engage/`
+- Establish URL redirects from old paths
+- Implement role-based navigation
+
+### Phase 2: Content Migration
+- Move existing customer content to `/engage/organizations/`
+- Move existing practitioner content to `/engage/practitioners/`
+- Identify and relocate shared content to common areas
+
+### Phase 3: Optimization & Enhancement
+- Identify content gaps in unified approach
+- Create cross-links between organization and practitioner content
+- Develop transitional content for overlapping areas
+
+## Navigation Structure Design
+
+### Primary Navigation
+```
+Primary Nav: Approach | Engage | Cases | Playbook
+Secondary Nav (under Engage): Organizations | Practitioners | Principles
+```
+
+### Contextual Navigation
+Each section maintains its audience-specific navigation while providing clear pathways to related content in the other sections.
+
+## Next Steps
+
+1. Confirm unified approach with stakeholders
+2. Begin technical implementation of new directory structure
+3. Initiate content migration according to proposed plan
+4. Coordinate with UX team on navigation implementation

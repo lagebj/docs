@@ -12,8 +12,8 @@
         {
           "group": "Audience Perspectives",
           "pages": [
-            "customers/index",
-            "practitioners/index"
+            "introduction/audience-perspectives/customers-index",
+            "introduction/audience-perspectives/practitioners-index"
           ]
         }
       ]
@@ -24,30 +24,30 @@
         {
           "group": "Foundation Principles",
           "pages": [
-            "principles/index",
-            "principles/core-principles",
-            "principles/anti-patterns"
+            "our-approach/foundation-principles/index",
+            "our-approach/foundation-principles/core-principles",
+            "our-approach/foundation-principles/anti-patterns"
           ]
         },
         {
           "group": "Methodology and Practices",
           "pages": [
-            "playbook/index",
-            "playbook/entry-gate",
-            "playbook/discovery",
-            "playbook/decision-patterns",
-            "playbook/field-signals",
-            "playbook/sponsor-behavior",
-            "playbook/working-in-the-open",
-            "playbook/taper-and-exit",
-            "playbook/checklists"
+            "our-approach/methodology-and-practices/index",
+            "our-approach/methodology-and-practices/entry-gate",
+            "our-approach/methodology-and-practices/discovery",
+            "our-approach/methodology-and-practices/decision-patterns",
+            "our-approach/methodology-and-practices/field-signals",
+            "our-approach/methodology-and-practices/sponsor-behavior",
+            "our-approach/methodology-and-practices/working-in-the-open",
+            "our-approach/methodology-and-practices/taper-and-exit",
+            "our-approach/methodology-and-practices/checklists"
           ]
         },
         {
           "group": "Engagement Model",
           "pages": [
-            "principles/engagement-model",
-            "principles/grounded-practitioners"
+            "our-approach/engagement-model/engagement-model",
+            "our-approach/engagement-model/grounded-practitioners"
           ]
         }
       ]
@@ -58,17 +58,17 @@
         {
           "group": "Collaborative Activities",
           "pages": [
-            "customers/what-we-help-with",
-            "customers/how-we-work",
-            "practitioners/how-we-think",
-            "practitioners/what-this-work-demands"
+            "working-together/collaborative-activities/what-we-help-with",
+            "working-together/collaborative-activities/how-we-work",
+            "working-together/collaborative-activities/how-we-think",
+            "working-together/collaborative-activities/what-this-work-demands"
           ]
         },
         {
           "group": "Success Patterns",
           "pages": [
-            "customers/when-we-are-a-fit",
-            "practitioners/who-thrives-here"
+            "working-together/success-patterns/when-we-are-a-fit",
+            "working-together/success-patterns/who-thrives-here"
           ]
         }
       ]
@@ -79,10 +79,10 @@
         {
           "group": "Case Library",
           "pages": [
-            "cases/index",
-            "cases/legacy-modernization",
-            "cases/vendor-friction",
-            "cases/platform-seams"
+            "examples/case-library/index",
+            "examples/case-library/legacy-modernization",
+            "examples/case-library/vendor-friction",
+            "examples/case-library/platform-seams"
           ]
         }
       ]
@@ -93,14 +93,13 @@
         {
           "group": "Documentation Resources",
           "pages": [
-            "reference/index",
-            "reference/glossary",
-            "reference/faq",
-            "reference/contribution-model",
-            "reference/performance-metrics",
-            "reference/performance-budget",
-            "reference/premium-components",
-            "reference/agent-skills"
+            "reference/documentation-resources/index",
+            "reference/documentation-resources/glossary",
+            "reference/documentation-resources/faq",
+            "reference/documentation-resources/contribution-model",
+            "reference/documentation-resources/performance-metrics",
+            "reference/documentation-resources/performance-budget",
+            "reference/documentation-resources/repository-separation-policy"
           ]
         }
       ]

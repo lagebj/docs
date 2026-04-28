@@ -1,0 +1,128 @@
+---
+title: Repository Separation Policy
+description: Criteria and procedures for separating code into distinct repositories
+---
+
+This policy defines when and how to separate code from the main documentation site into独立 repositories. It ensures consistency across all Grounded Systems projects while maintaining clear boundaries between documentation and implementation.
+
+## When to Separate Repositories
+
+Create a separate repository when you need to:
+
+- Develop a reusable library or framework component
+- Build a standalone application or service
+- Implement tools that support the core model but aren't documentation
+- Create experimental projects with different technology stacks
+- Establish clear versioning and release cycles distinct from documentation
+
+Do not create separate repositories for:
+
+- Content that explains the model or documents practices
+- Case studies or examples that illustrate the approach
+- Guidance on applying principles or playbook items
+
+## Repository Types
+
+### Libraries and Frameworks
+
+Reusable code that implements parts of the Grounded Systems model should exist in separate repositories with clear APIs and documentation.
+
+### Standalone Applications
+
+Complete applications or services that embody the model in executable form deserve独立 repositories with their own deployment and maintenance procedures.
+
+### Supporting Tools
+
+Tools that help implement or assess adherence to the model should be separate repositories when they have distinct release cycles or audiences.
+
+## Naming Conventions
+
+All repositories must follow the naming pattern:
+
+```text
+gs-[project-name]
+```
+
+Examples:
+
+- `gs-core-framework`
+- `gs-deployment-tool`
+- `gs-validation-suite`
+
+## Organization Structure
+
+Repositories must include:
+
+1. README.md with project purpose and getting started guide
+2. LICENSE file with appropriate licensing
+3. CONTRIBUTING.md for contribution guidelines
+4. CODEOWNERS to identify maintainers
+5. Standard GitHub issue templates
+
+## Governance Responsibilities
+
+### Repository Owners
+
+Each repository must have designated owners who:
+
+- Maintain code quality and architectural consistency
+- Review and approve pull requests
+- Manage releases and versioning
+- Respond to issues and security concerns
+
+### Integration with Documentation
+
+Repositories must:
+
+- Link back to relevant documentation in the main site
+- Include runnable examples that demonstrate concepts
+- Update documentation when implementation changes significantly
+
+## Versioning Strategy
+
+Follow Semantic Versioning (SemVer):
+
+- MAJOR version for incompatible API changes
+- MINOR version for backward-compatible functionality
+- PATCH version for backward-compatible bug fixes
+
+Tag releases with git tags following the format `vX.Y.Z`.
+
+## Security Considerations
+
+All repositories must:
+
+- Have automated security scanning in CI/CD pipeline
+- Define a SECURITY.md file with vulnerability reporting procedures
+- Restrict direct commit access to owners only
+- Require pull request reviews for all changes
+
+## Lifecycle Management
+
+### Creation Process
+
+1. Submit a proposal to the CTO with justification
+2. Receive approval based on architectural fit
+3. Create repository under Grounded Systems organization
+4. Set up initial structure and CI/CD pipeline
+5. Announce to team with clear ownership assignment
+
+### Archival Process
+
+Repositories should be archived when:
+
+- They are no longer actively maintained
+- They have been superseded by newer implementations
+- They contain deprecated approaches
+
+Archived repositories:
+
+- Remain publicly readable
+- Display clear notices about their status
+- Link to replacement projects if applicable
+
+## Review and Updates
+
+This policy is reviewed quarterly by the CTO and Lead Engineer to ensure it remains aligned with organizational needs and technical practices.
+
+Last reviewed: April 2026
